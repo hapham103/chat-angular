@@ -1,21 +1,26 @@
-var componentName = 'chatControl';
+var componentName = 'conversationDetails';
 angular.module(componentName, ['ngEventEmitter'])
     .component(componentName, {
-        templateUrl: 'partials/home/components/chat-control/chat-control-template.html',
+        templateUrl: 'partials/home/conversation-details/conversation-details-template.html',
         controller: Controller,
-        controllerAs: 'chatCtrl'
+        controllerAs: 'details'
     });
 
 function Controller(db, $on) {
     let self = this;
     this.curCon;
     this.title;
+    this.avatarUrl;
     function get() {
         self.curCon = db.curConversation;
         self.title = self.curCon.title;
+        self.avatarUrl = self.curCon.avatarUrl;
     }
     get();
-    $on('changeConversation', function() {
+    $('#details').height($('body').height() - 50);
+
+    
+    $on('changeConversation', function () {
         get();
     });
 }

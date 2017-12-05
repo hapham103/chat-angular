@@ -1,7 +1,7 @@
 var componentName = 'chatForm';
 angular.module(componentName, ['ngEventEmitter'])
         .component(componentName, {
-            templateUrl: 'partials/home/components/chat-form/chat-form-template.html',
+            templateUrl: 'partials/home/chat-form/chat-form-template.html',
             controller: Controller,
             controllerAs: 'chat'
         });

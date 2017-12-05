@@ -1,7 +1,7 @@
 var componentName = 'myAcount';
 angular.module(componentName, [])
     .component(componentName, {
-        templateUrl: 'partials/home/components/my-acount/my-acount-template.html',
+        templateUrl: 'partials/home/my-acount/my-acount-template.html',
         controller: Controller,
         controllerAs: 'myAcount'
     });

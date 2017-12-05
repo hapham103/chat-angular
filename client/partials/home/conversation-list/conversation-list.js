@@ -1,7 +1,7 @@
 var componentName = 'conversationList';
 angular.module(componentName, ['ngEventEmitter'])
     .component(componentName, {
-        templateUrl: 'partials/home/components/conversation-list/conversation-list-template.html',
+        templateUrl: 'partials/home/conversation-list/conversation-list-template.html',
         controller: Controller,
         controllerAs: 'conversationList'
     });
