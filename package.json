@@ -1,0 +1,28 @@
+{
+  "name": "chat-angular",
+  "version": "1.0.0",
+  "description": "app chat using node angularjs socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhannt97hy/chat-angular.git"
+  },
+  "keywords": [
+    "chat-angular"
+  ],
+  "author": "Linh, Nhan, Son, Thuy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nhannt97hy/chat-angular/issues"
+  },
+  "homepage": "https://github.com/nhannt97hy/chat-angular#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.26.0",
+    "socket.io": "^2.0.4"
+  }
+}
