@@ -1,20 +1,18 @@
-var db = require('./testdb');
-var user = db.user;
+var models = require('../models/db');
+var User = models.User;
 
 module.exports.getUserList = function(req, res) {
-	user.findAll().then(users=>{
+	User.findAll().then(users=>{
 		res.send(users);
 	}).catch(err=>{});
 }
 module.exports.getUser = function(req, res) {
-	user.findById(req.params.userid).then(user=> {
+	User.findById(req.params.userid, {
+		include: {
+			model: models.Conversation,
+			include: models.Message
+		}
+	}).then(user=> {
 		res.send(user);
 	}).catch(err=>{});
-	// user.findAll({
-	// 	where: {
-	// 		id: 
-	// 	}
-	// }).then(user=>{
-	// 	res.send(user);
-	// })
 }

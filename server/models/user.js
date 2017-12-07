@@ -8,8 +8,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         username: {
             type: DataTypes.STRING(150),
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING(150),
@@ -18,7 +17,8 @@ module.exports = function (sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING(100),
             allowNull: false,
-            defaultValue: ""
+            defaultValue: "",
+            unique: true
         },
         fullname: {
             type: DataTypes.STRING(100),
@@ -28,11 +28,11 @@ module.exports = function (sequelize, DataTypes) {
         avatar:{
             type: DataTypes.STRING(100),
             allowNull: false
-        },
-        is_active:{
-            type: DataTypes.BOOLEAN,
-            defaultValue : false
         }
+        // is_active:{
+        //     type: DataTypes.BOOLEAN,
+        //     defaultValue : false
+        // }
     });
 
 };

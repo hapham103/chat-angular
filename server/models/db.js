@@ -3,7 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
-var sequelize = new Sequelize("chat_angular2", "root", "199783", {
+var sequelize = new Sequelize("chatangular", "root", "", {
     dialect: 'mysql'
 });
 var db = {};
@@ -22,16 +22,28 @@ Object.keys(db).forEach(function(modelName) {
         db[modelName].associate(db);
     }
 });
-sequelize.sync()
+sequelize.sync().then(()=>{
+    console.log('sync success', db.User);
+}).catch(err=>{
+    console.log('sync err');
+})
+
+db.Conversation.belongsToMany(db.User, {
+    through : 'user_conversation',
+    foreignKey: 'conversation_id'
+});
+db.User.belongsToMany(db.Conversation, {
+    through : 'user_conversation',
+    foreignKey: 'user_id'
+});
+db.Conversation.hasMany(db.Message, {
+    foreignKey: {
+        name: 'conversation_id',
+        allowNull: false
+    }
+})
 
 var models = sequelize.models;
-//  models.User.create({
-//     username: 'linh',
-//     password: 'linh',
-//     email: 'linh',
-//     fullname: 'linh',
-//     avatar: 'linh'
-// })
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

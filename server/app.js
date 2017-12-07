@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
-require('./controllers/testdb');
+require('./models/db');
 var routesApi = require('./routes/index');
 var authRoutesApi = require('./routes/authentication');
 var authVerify = require('./controllers/verify-authentication');

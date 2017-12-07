@@ -1,16 +1,19 @@
-var db = require('./testdb');
-var user = db.user;
 var md5 = require('md5');
 var jwt = require('jsonwebtoken');
 var jsonResponse = require('../response');
 var errorCode = require('../errorCode').CODES;
+var models = require('../models/db');
+var User = models.User;
 
 module.exports.register = function(req, res) {
     req.body.password = md5(req.body.password);
-    user.create({
-        name: req.body.name,
+    User.create({
+        username: req.body.username,
         password: req.body.password,
-        email: req.body.email
+        email: req.body.email.body,
+        avatar: req.body.avatar,
+        fullname: req.body.fullname,
+        is_active: req.body.is_active
     }).then(function(result){
         var token = jwt.sign(req.body,'secretKey');
         res.send(jsonResponse(errorCode.SUCCESS,'SUCCESS', token));
@@ -21,7 +24,7 @@ module.exports.register = function(req, res) {
 
 module.exports.login = function(req, res) {
     req.body.password = md5(req.body.password);
-    user.findOne({where: {name: req.body.name}})
+    User.findOne({where: {email: req.body.email}})
         .then(function(user){
             if(!user) {
                 res.send(jsonResponse(errorCode.ERROR_USER_NOT_EXISTS,'USER NOT EXIST'));
@@ -30,9 +33,12 @@ module.exports.login = function(req, res) {
                     res.send(jsonResponse(errorCode.ERROR_WRONG_PASSWORD, "WRONG PASSWORD"));
                 } else {
                     var responseUser = {
-                        "name": req.body.name,
+                        "username": req.body.username,
                         "password": req.body.password,
-                        "email": user.email
+                        "email": user.email,
+                        "avatar": user.avatar,
+                        "fullname": user.fullname,
+                        "is_active": user.is_active
                     };
                     var token = jwt.sign(responseUser, 'secretKey');
                     res.send(jsonResponse(errorCode.SUCCESS, "SUCCESS", token));

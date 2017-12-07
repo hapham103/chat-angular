@@ -1,26 +1,43 @@
-var db = require('./testdb');
-var conversation = db.conversation;
-module.exports.getListConversation = function(req, res) {
-    console.log('ok');
-    conversation.findAll().then(function(data) {
+var models = require('../models/db');
+var Conversation = models.Conversation;
+
+module.exports.getConversation = function(req, res) {
+    Conversation.findById(req.params.conversationid,{
+		include: {
+			model: models.User
+		}
+	}).then(data=>{
     	res.send(data);
     }).catch(err=>{
 
     })
 }
 module.exports.createConversation = function (req,res) {
-	conversation.create(req.body).then(data=>{
+	Conversation.create({
+		title: req.body.title,
+		avatar: req.body.avatar
+	}).then(data=>{
+		let ids = req.body.members;
+		data.setUsers(ids);
 		res.send(data);
 	}).catch(err=>{});
 }
 module.exports.updateConversation = function(req,res) {
-	conversation.update({
-		name: req.body.name
+	Conversation.update({
+		title: req.body.title
 	},{
 		where : {
 			id : req.params.conversationid
 		}
-	}).then(rs=>{
-		res.send(rs);
+	}).then(data=>{
+		res.send(data);
+	})
+}
+module.exports.addUserToConversation = function(req,res) {
+	Conversation.findById(req.params.conversationid)
+		.then(function(conversation) {
+			let ids = req.body.newMem;
+			conversation.addUsers(ids);
+			res.send(getConversation);
 	})
 }

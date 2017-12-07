@@ -11,26 +11,15 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING(40),
             allowNull: false
         },
-        creator_id: {
-            type: DataTypes.STRING(150),
-            allowNull: false
-        },
+        // creator_id: {
+        //     type: DataTypes.STRING(150),
+        //     allowNull: false
+        // },
         avatar:{
             type: DataTypes.STRING(100),
             allowNull: false
         },
 
     });
-    Conversation.associate = function (models) {
-        Conversation.belongsToMany(models.Particpant, {
-            onDelete: "CASCADE",
-            through:"Conversation",
-            foreignKey: 'id'
-
-        });
-
-    }
-
-
     return Conversation;
 };

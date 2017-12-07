@@ -8,7 +8,6 @@ var router = express.Router();
 
 var ctrlMessage = require('../controllers/message');
 var ctrlConversation = require('../controllers/conversation');
-var ctrlAuth = require('../controllers/authentication');
 var ctrlUser = require('../controllers/user');
 
 //user
@@ -20,9 +19,9 @@ router.get('/users/:userid', function(req, res) {
 })
 
 //chat
-router.get('/conversations/:conversationid/messages', function (req,res) {
-	ctrlMessage.getMessage(req,res);
-})
+// router.get('/conversations/:conversationid/messages', function (req,res) {
+// 	ctrlMessage.getMessage(req,res);
+// })
 router.post('/conversations/:conversationid/messages/new', function(req,res) {
 	ctrlMessage.sendMessage(req,res);
 });
@@ -34,9 +33,13 @@ router.post('/conversations/new', function(req,res) {
 router.put('/conversations/:conversationid', function(req,res) {
 	ctrlConversation.updateConversation(req,res);
 });
-router.get('/conversations', function(req, res){
-	ctrlConversation.getListConversation(req, res);
+router.get('/conversations/:conversationid', function(req, res){
+	ctrlConversation.getConversation(req, res);
 });
+
+router.put('/conversations/:conversationid/add', function(req,res) {
+	ctrlConversation.addUserToConversation(req,res);
+})
 
 // register and login
 router.post('/register', function(req,res){
