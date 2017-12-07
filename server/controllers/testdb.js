@@ -35,7 +35,12 @@ const user = connection.define('user', {
         primaryKey: true,
         autoIncrement: true
     },
-    name: Sequelize.STRING,
+    name: {
+        type: Sequelize.STRING,
+        unique: true
+    },
+    password: Sequelize.STRING,
+    email: Sequelize.STRING
     // birthday: Sequelize.DATE
 })
 

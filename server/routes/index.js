@@ -38,7 +38,12 @@ router.get('/conversations', function(req, res){
 	ctrlConversation.getListConversation(req, res);
 });
 
-//register and login
-// router.post('/register', ctrlAuth.register);
-// router.post('/login', ctrlAuth.login);
+// register and login
+router.post('/register', function(req,res){
+	ctrlAuth.register(req,res);
+});
+router.post('/login', function(req,res){
+	ctrlAuth.login(req,res);
+});
+
 module.exports = router;
