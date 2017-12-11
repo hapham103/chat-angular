@@ -1,4 +1,6 @@
-Log in page
-<input type="" name="" value="" id="email">
-<input type="" name="" value="" id="pwd">
+Login page
+<a ui-sref='register'>register</a>
+<div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger">{{ loginCtrl.formError }}</div>
+<input type="" name="" value="" id="email" ng-model="loginCtrl.user.email">
+<input type="password" name="" value="" id="pwd" ng-model="loginCtrl.user.password">
 <button type="submit" ng-click="loginCtrl.login()">Login</button>

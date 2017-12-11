@@ -11,6 +11,11 @@ angular.module('chat-app')
                     templateUrl: './partials/login/login-template.html',
                     controller: 'loginCtrl as loginCtrl'
                 })
+                .state('register', {
+                    url: '/register',
+                    templateUrl: './partials/register/register-template.html',
+                    controller: 'registerCtrl as registerCtrl'
+                })
                 .state('home', {
                     url: '/home',
                     views: {

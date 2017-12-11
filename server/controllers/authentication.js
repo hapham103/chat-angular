@@ -7,18 +7,11 @@ var User = models.User;
 
 module.exports.register = function(req, res) {
     req.body.password = md5(req.body.password);
-    User.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email.body,
-        avatar: req.body.avatar,
-        fullname: req.body.fullname,
-        is_active: req.body.is_active
-    }).then(function(result){
+    User.create(req.body).then(function(result){
         var token = jwt.sign(req.body,'secretKey');
-        res.send(jsonResponse(errorCode.SUCCESS,'SUCCESS', token));
+        res.send(jsonResponse(res, errorCode.SUCCESS, token));
     }).catch(function(){
-        res.send(jsonResponse(errorCode.ERROR_USER_EXISTED,'USER EXISTED'));
+        res.send(jsonResponse(res, errorCode.ERROR_USER_EXISTED));
     })
 }
 
@@ -27,10 +20,11 @@ module.exports.login = function(req, res) {
     User.findOne({where: {email: req.body.email}})
         .then(function(user){
             if(!user) {
-                res.send(jsonResponse(errorCode.ERROR_USER_NOT_EXISTS,'USER NOT EXIST'));
+                res.send(jsonResponse(res,errorCode.ERROR_USER_NOT_EXISTS));
             } else {
                 if(user.password !== req.body.password){
-                    res.send(jsonResponse(errorCode.ERROR_WRONG_PASSWORD, "WRONG PASSWORD"));
+                    res.send(jsonResponser(res, errorCode.ERROR_WRONG_PASSWORD));
+                    // res.status(400).send("WRONG PASS");
                 } else {
                     var responseUser = {
                         "username": req.body.username,
@@ -38,10 +32,10 @@ module.exports.login = function(req, res) {
                         "email": user.email,
                         "avatar": user.avatar,
                         "fullname": user.fullname,
-                        "is_active": user.is_active
+                        // "is_active": user.is_active
                     };
                     var token = jwt.sign(responseUser, 'secretKey');
-                    res.send(jsonResponse(errorCode.SUCCESS, "SUCCESS", token));
+                    res.send(jsonResponse(res, errorCode.SUCCESS, token));
                 }
             }
         })

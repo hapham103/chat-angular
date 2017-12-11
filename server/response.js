@@ -1,13 +1,4 @@
-class Response{
-    constructor(code, reason, content){
-        this.code = code,
-        this.reason = reason,
-        this.content = content
-    }
-}
-module.exports = function (code, reason, content) {
-    code = code || 200;
-    reason = reason || "";
-    content = content || {};
-    return new Response(code, reason, content);
-}
+module.exports = function (res, status, content){
+    res.status(status);
+    res.json(content);
+};
