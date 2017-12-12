@@ -6,8 +6,14 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(db) {
+function Controller(apiService) {
     let self = this;
-    this.username = db.curUser.username;
-    this.avatarUrl = db.curUser.avatarUrl;
+    apiService.getCurrentUser()
+        .then(function(user){
+            console.log('user', user);
+            self.username = user.data.username;
+            self.avatarUrl = user.data.avatar;
+        })
+    // this.username = apiService.currentUser.username;
+    // this.avatarUrl = apiService.currentUser.avatar;
 }

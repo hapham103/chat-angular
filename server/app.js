@@ -14,10 +14,9 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
-
-app.use('/api', authRoutesApi);
-// app.use(authVerify());
-app.use('/api',authVerify(), routesApi);
+app.use('/action', authRoutesApi);
+app.use(authVerify());
+app.use('/api', routesApi);
 
 
 

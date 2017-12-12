@@ -15,7 +15,10 @@ router.get('/users', function(req,res) {
 	ctrlUser.getUserList(req,res);
 })
 router.get('/users/:userid', function(req, res) {
-	ctrlUser.getUser(req,res);
+	ctrlUser.getUserById(req,res);
+})
+router.get('/userlist/:email', function(req, res) {
+	ctrlUser.getUserByEmail(req,res);
 })
 
 //chat
@@ -40,13 +43,5 @@ router.get('/conversations/:conversationid', function(req, res){
 router.put('/conversations/:conversationid/add', function(req,res) {
 	ctrlConversation.addUserToConversation(req,res);
 })
-
-// register and login
-router.post('/register', function(req,res){
-	ctrlAuth.register(req,res);
-});
-router.post('/login', function(req,res){
-	ctrlAuth.login(req,res);
-});
 
 module.exports = router;

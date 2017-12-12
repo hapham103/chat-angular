@@ -36,7 +36,7 @@ module.exports.updateConversation = function(req,res) {
 module.exports.addUserToConversation = function(req,res) {
 	Conversation.findById(req.params.conversationid)
 		.then(function(conversation) {
-			let ids = req.body.newMem;
+			let ids = req.body.id;
 			conversation.addUsers(ids);
 			res.send(getConversation);
 	})

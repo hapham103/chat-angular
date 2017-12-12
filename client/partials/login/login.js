@@ -1,6 +1,6 @@
 angular.module('chat-app').controller("loginCtrl", loginCtrl);
 
-function loginCtrl( $location, $emit, $on, $timeout, authentication) {
+function loginCtrl( $location, $emit, $on, $timeout, apiService) {
     let self = this;
     self.formError = ""
     self.user = {
@@ -18,7 +18,7 @@ function loginCtrl( $location, $emit, $on, $timeout, authentication) {
 
     self.doLoggin = function () {
         console.log('dologin');
-        authentication.login(self.user)
+        apiService.login(self.user)
             .then(function (user){
                 console.log("success");
                 $location.path('/home');

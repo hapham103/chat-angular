@@ -1,6 +1,6 @@
 angular.module('chat-app').controller("registerCtrl", registerCtrl);
 
-function registerCtrl( $location, $emit, $on, $timeout, authentication) {
+function registerCtrl( $location, $emit, $on, $timeout, apiService) {
     let self = this;
     self.formError = ""
     self.user = {
@@ -31,7 +31,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication) {
             fullname: self.user.fullname,
             username: self.user.username
         }
-        authentication.register(newUser)
+        apiService.register(newUser)
             .then(function (user){
                 console.log("success");
                 $location.path('/home');

@@ -1,5 +1,5 @@
-angular.module('chat-app').service('authentication', authentication);
-function authentication ($window, $http) {
+angular.module('chat-app').service('apiService', apiService);
+function apiService ($window, $http) {
     var saveToken = function(token) {
         $window.localStorage['chatapp-token'] = token;
     }
@@ -8,14 +8,14 @@ function authentication ($window, $http) {
     }
     var login = function(user) {
         console.log('login call');
-        return $http.post('/api/login', user)
+        return $http.post('/action/login', user)
                     .then(function (userdata){
                             saveToken(userdata.data);
                     })
     }
     var register = function(user) {
         console.log('register call');
-        return $http.post('/api/register', user)
+        return $http.post('/action/register', user)
                     .then(function(user){
                         saveToken(user.data);
                     })
@@ -26,28 +26,36 @@ function authentication ($window, $http) {
     var isLoggedIn = function() {
         var token = getToken();
         if(token){
-            var payload = JSON.parse($window.atob(token.split('.')[1]));
-            return payload.exp > Date.now() / 1000;
+            // console.log('token',token)
+            // var payload = JSON.parse($window.atob(token.split('.')[1]));
+            // return payload.exp > Date.now() / 1000;
+            return true;
         } else {
+            console.log('no token');
             return false;
         }
     }
-    var currentUser = function () {
+    var getCurrentUser = function () {
         if(isLoggedIn()){
             var token = getToken();
             var payload = JSON.parse($window.atob(token.split('.')[1]));
-            return {
-                email : payload.email,
-                name : payload.name
-            };
+            return $http.get('/api/userlist/'+payload.email, {
+                headers: {'Authorization': token}
+            })
+        } else {
+            console.log('please loggin');
         }
     }
+
+   
     return {
         saveToken: saveToken,
         getToken: getToken,
         login: login,
         register: register,
         isLoggedIn: isLoggedIn,
-        currentUser: currentUser
+        getCurrentUser: getCurrentUser,
+        // getConversationList: getConversationList,
+        // getAConversation: getAConversation
     }
 }

@@ -23,7 +23,7 @@ module.exports.login = function(req, res) {
                 res.send(jsonResponse(res,errorCode.ERROR_USER_NOT_EXISTS));
             } else {
                 if(user.password !== req.body.password){
-                    res.send(jsonResponser(res, errorCode.ERROR_WRONG_PASSWORD));
+                    res.send(jsonResponse(res, errorCode.ERROR_WRONG_PASSWORD));
                     // res.status(400).send("WRONG PASS");
                 } else {
                     var responseUser = {

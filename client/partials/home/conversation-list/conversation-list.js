@@ -6,17 +6,22 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'conversationList'
     });
 
-function Controller(db, $emit) {
+function Controller(apiService, $emit) {
     let self = this;
-   
-    this.conversations = db.conversations;
+    
+    apiService.getCurrentUser()
+        .then(function(user){
+            self.conversations = user.data.Conversations;
+        }).catch(function(){
+            console.log('no user found');
+        })
     $('#list').height($('body').height() - 50);
     $(window).resize(function () {
         $('#list').height($('body').height() - 50);
     });
     this.onchangeConversation = function(conver) {
-        db.curConversation = conver;
-        $emit('changeConversation', db.curConversation.id);
+        apiService.curConversation = conver;
+        $emit('changeConversation', apiService.curConversation.id);
     };
     // console.log('list con: ', socket.id);
 }
