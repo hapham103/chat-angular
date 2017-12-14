@@ -6,7 +6,7 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(authentication, $location) {
+function Controller(authentication, $location, DialogService) {
     let self = this;
     authentication.getCurrentUser()
         .then(function(user){
@@ -19,5 +19,9 @@ function Controller(authentication, $location) {
     self.logout = function () {
         authentication.logout();
         $location.path('/');
+    }
+    self.showModal = function(){
+        console.log('show modal');
+        DialogService.newConversation();
     }
 }
