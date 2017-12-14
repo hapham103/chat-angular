@@ -6,7 +6,9 @@ module.exports.sendMessage = function (req, res) {
 	Message.create({
 		message: req.body.message,
 		message_type: req.body.message_type,
-		conversation_id: req.params.conversationid
+		conversation_id: req.params.conversationid,
+		sender_id : req.body.sender_id
+		
 	}).then(message => {
 		res.send(message);
 	}).catch(err => {});
