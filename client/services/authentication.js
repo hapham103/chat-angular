@@ -21,7 +21,7 @@ function authentication ($window, $http) {
                     })
     }
     var logout = function(){
-        $window.localStorange.removeItem('chatapp-token');
+        $window.localStorage.removeItem('chatapp-token');
     }
     var isLoggedIn = function() {
         var token = getToken();

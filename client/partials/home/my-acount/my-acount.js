@@ -6,7 +6,7 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(authentication) {
+function Controller(authentication, $location) {
     let self = this;
     authentication.getCurrentUser()
         .then(function(user){
@@ -16,4 +16,8 @@ function Controller(authentication) {
         }).catch(err=> {
             console.log('err',err);
         })
+    self.logout = function () {
+        authentication.logout();
+        $location.path('/');
+    }
 }

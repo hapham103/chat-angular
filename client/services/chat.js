@@ -3,6 +3,7 @@ function chat ($http, $window) {
     var token = $window.localStorage['chatapp-token'];
     var payload = JSON.parse($window.atob(token.split('.')[1]));
 
+    console.log('payload.id', payload.id);
     var getUserList = function() {
         return $http.get('/api/users', {
             headers: {'Authorization': token}
