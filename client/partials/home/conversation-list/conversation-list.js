@@ -11,6 +11,7 @@ function Controller(chatService, $emit) {
     chatService.getConversationList()
         .then(function(conversations){
             self.conversations = conversations.data;
+            console.log('listCOn: ', self.conversations);
         }).catch(err=>{
             console.log('err', err);
         })

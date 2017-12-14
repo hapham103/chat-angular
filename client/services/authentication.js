@@ -52,6 +52,7 @@ function authentication ($window, $http) {
         login: login,
         logout: logout,
         register: register,
-        getCurrentUser: getCurrentUser
+        getCurrentUser: getCurrentUser,
+        getToken: getToken
     }
 }
