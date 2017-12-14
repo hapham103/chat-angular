@@ -3,7 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
-var sequelize = new Sequelize("chatangular", "root", "", {
+var sequelize = new Sequelize("chat_angular", "root", "", {
     dialect: 'mysql'
 });
 var db = {};
