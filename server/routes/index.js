@@ -1,10 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var jwt = require ('express-jwt');
-// var auth = jwt({
-// 	secret: process.env.JWT_SECRET,
-//     userProperty: 'payload'
-// });
 
 var ctrlMessage = require('../controllers/message');
 var ctrlConversation = require('../controllers/conversation');
@@ -22,9 +17,9 @@ router.get('/userlist/:email', function(req, res) {
 })
 
 //chat
-// router.get('/conversations/:conversationid/messages', function (req,res) {
-// 	ctrlMessage.getMessage(req,res);
-// })
+router.get('/conversations/:conversationid/messages', function (req,res) {
+	ctrlMessage.getMessage(req,res);
+})
 router.post('/conversations/:conversationid/messages/new', function(req,res) {
 	ctrlMessage.sendMessage(req,res);
 });
@@ -33,13 +28,15 @@ router.post('/conversations/:conversationid/messages/new', function(req,res) {
 router.post('/conversations/new', function(req,res) {
 	ctrlConversation.createConversation(req,res);
 });
-router.put('/conversations/:conversationid', function(req,res) {
-	ctrlConversation.updateConversation(req,res);
-});
+// router.put('/conversations/:conversationid', function(req,res) {
+// 	ctrlConversation.updateConversation(req,res);
+// });
 router.get('/conversations/:conversationid', function(req, res){
 	ctrlConversation.getConversation(req, res);
 });
-
+router.get('/conversationlist/:email', function(req,res){
+	ctrlConversation.getConversationList(req,res);
+})
 router.put('/conversations/:conversationid/add', function(req,res) {
 	ctrlConversation.addUserToConversation(req,res);
 })

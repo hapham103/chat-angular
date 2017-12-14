@@ -1,5 +1,5 @@
-angular.module('chat-app').service('apiService', apiService);
-function apiService ($window, $http) {
+angular.module('chat-app').service('authentication', authentication);
+function authentication ($window, $http) {
     var saveToken = function(token) {
         $window.localStorage['chatapp-token'] = token;
     }
@@ -49,13 +49,9 @@ function apiService ($window, $http) {
 
    
     return {
-        saveToken: saveToken,
-        getToken: getToken,
         login: login,
+        logout: logout,
         register: register,
-        isLoggedIn: isLoggedIn,
-        getCurrentUser: getCurrentUser,
-        // getConversationList: getConversationList,
-        // getAConversation: getAConversation
+        getCurrentUser: getCurrentUser
     }
 }

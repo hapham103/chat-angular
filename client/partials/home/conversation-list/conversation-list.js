@@ -6,15 +6,20 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'conversationList'
     });
 
-function Controller(apiService, $emit) {
+function Controller(chatService, $emit) {
     let self = this;
-    
-    apiService.getCurrentUser()
-        .then(function(user){
-            self.conversations = user.data.Conversations;
-        }).catch(function(){
-            console.log('no user found');
+    chatService.getConversationList()
+        .then(function(conversations){
+            self.conversations = conversations.data;
+        }).catch(err=>{
+            console.log('err', err);
         })
+    
+        var x={
+            id: [6,7]
+        }
+        var   conversation_id= 4;
+    
     $('#list').height($('body').height() - 50);
     $(window).resize(function () {
         $('#list').height($('body').height() - 50);
