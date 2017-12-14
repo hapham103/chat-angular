@@ -7,11 +7,11 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
         username: {
-            type: DataTypes.STRING(150),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING(150),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         email: {
@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
             defaultValue: ""
         },
         avatar:{
-            type: DataTypes.STRING(100),
+            type: DataTypes.TEXT,
             allowNull: false
         }
         // is_active:{

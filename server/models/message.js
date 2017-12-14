@@ -15,11 +15,11 @@ module.exports = function (sequelize, DataTypes) {
         //     allowNull: false
         // },
         message: {
-            type: DataTypes.STRING(250),
+            type: DataTypes.TEXT,
             allowNull: true
         },
         message_type:{
-            type: DataTypes.STRING(40),
+            type: DataTypes.STRING(50),
             allowNull: false
         }
 

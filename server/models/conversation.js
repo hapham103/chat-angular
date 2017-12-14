@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true
         },
         title: {
-            type: DataTypes.STRING(40),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         // creator_id: {
@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         //     allowNull: false
         // },
         avatar:{
-            type: DataTypes.STRING(100),
+            type: DataTypes.TEXT,
             allowNull: false
         },
 
