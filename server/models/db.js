@@ -42,6 +42,12 @@ db.Conversation.hasMany(db.Message, {
         allowNull: false
     }
 })
+db.User.hasMany(db.Message, {
+    foreignKey: {
+        name: 'sender_id',
+        allowNull: false
+    }
+})
 
 var models = sequelize.models;
 
