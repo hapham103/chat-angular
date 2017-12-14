@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 app.use('/action', authRoutesApi);
-app.use(authVerify());
+// app.use(authVerify());
 app.use('/api', routesApi);
 
 

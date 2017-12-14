@@ -1,6 +1,6 @@
 angular.module('chat-app').service('chatService', chat);
-function chat ($http, $window) {
-    var token = $window.localStorage['chatapp-token'];
+function chat ($http, $window, authentication) {
+    var token = authentication.getToken();
     var payload = JSON.parse($window.atob(token.split('.')[1]));
 
     console.log('payload.id', payload.id);
@@ -10,6 +10,9 @@ function chat ($http, $window) {
         });
     }
     var getConversationList = function(){
+        var token = authentication.getToken();
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+        console.log('payload.email: ', payload.email);
         return $http.get('/api/conversationlist/' + payload.email,  {
             headers: {'Authorization': token}
         });
