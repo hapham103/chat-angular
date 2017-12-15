@@ -3,16 +3,16 @@ var User = models.User;
 var Conversation = models.Conversation;
 
 module.exports.getConversationList = function(req, res){
-	Conversation.findAll({
-		include: [{
-			model: User,
-			attributes: ['id', 'email'],
-			where: {
-				email: req.params.email
-			}
-		}]
+	User.findOne({
+		include: {
+			model: Conversation,
+			include : {model: User}
+		},
+		where: {
+			email: req.params.email
+		}
 	}).then(data => {
-		res.send(data);
+		res.send(data.Conversations);
 	}).catch(err => {
 		res.send('err');
 	})
@@ -20,6 +20,10 @@ module.exports.getConversationList = function(req, res){
 
 module.exports.getConversation = function(req, res) {
     Conversation.findById(req.params.conversationid,{
+		include: [{
+			model: User,
+			attributes: ['id', 'email', 'avatar', 'username']
+		}]
 	}).then(data=>{
     	res.send(data);
     }).catch(err=>{
