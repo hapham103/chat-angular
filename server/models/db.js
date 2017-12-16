@@ -49,6 +49,10 @@ db.User.hasMany(db.Message, {
         allowNull: false
     }
 })
+db.Message.belongsTo(db.User, { 
+    foreignKey: 'sender_id', 
+    targetKey: 'id' 
+});
 
 var models = sequelize.models;
 
