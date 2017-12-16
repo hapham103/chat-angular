@@ -20,9 +20,7 @@ app.get('/', function (req, res) {
 });
 app.use('/action', authRoutesApi);
 // app.use(authVerify());
-app.use('/api', routesApi);
-
-
+app.use('/api', authVerify(), routesApi);
 
 server.listen(3000, function () {
 	console.log('listening on port 3000');
@@ -30,8 +28,15 @@ server.listen(3000, function () {
 
 io.on('connection', function (socket) {
 	console.log('Connection!');
+	socket.on('listRoom', function (data) {
+		data.forEach(function(room) {
+			socket.join(room.id);
+		});
+	});
+
 	socket.on('sendMessage', function(data){
-		io.in(data.room_id).emit('reciveMessage', data);
-	})
-	
+
+		console.log(data.room.id);
+		io.in(data.room.id).emit('reciveMessage', data);
+	});
 });

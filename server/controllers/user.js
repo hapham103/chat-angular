@@ -1,4 +1,5 @@
 var models = require('../models/db');
+var Op = models.Op;
 var User = models.User;
 
 module.exports.getUserList = function(req, res) {
@@ -23,7 +24,21 @@ module.exports.getUserByEmail = function (req, res) {
 		},
 		include: {
 			model: models.Conversation,
-			include: models.Message
+			include: [
+				{ 
+					model: models.Message,
+					include: [{
+						model: User
+					}] 
+				}, 
+				{ 
+					model: User, 
+					where: { 
+						email: { 
+							[Op.notLike]: req.params.email
+						}
+					}
+				}]
 		}
 	}).then(user => {
 		res.send(user);

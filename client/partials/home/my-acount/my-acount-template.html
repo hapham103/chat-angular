@@ -1,6 +1,6 @@
 <img ng-src="{{myAcount.avatarUrl}}" class="img-circle" alt="" id="avatar">
 <span id="username"> {{myAcount.username}} </span>
-<button type="" style="float: right; border: none; background: none">
+<button ng-click="myAcount.showModal()" type="" style="float: right; border: none; background: none">
     <i class="fa fa-edit" style="font-size:25px; "></i>
 </button>
 <span class="dropdown" style="float: right">

@@ -75,22 +75,22 @@ function Controller(chatService, $on) {
         }
     });
 
-    socket.on('reciveMessage', function (data) {
-        console.log("cur: " + self.curUser.id + "sender: " + data.sender_id + data.content);
-        chatService.listConver[chatService.getPosConver(data.room_id)].Messages.push({
-            sender_id: data.sender_id,
-            message: data.content
-        });
-        if (self.curCon.id == data.room_id) {
-            $('#list-message').html('');
-            get();
-        }
-    });
     $('textarea').keypress(function (e) {
         if (e.which == 13 && !e.shiftKey) {
-            socket.emit('sendMessage', { content: $('textarea').val(), room_id: self.curCon, sender_id: self.curUser.id });
+            socket.emit('sendMessage', { content: $('textarea').val(), room: self.curCon, sender_id: self.curUser.id });
             e.preventDefault();
             $('textarea').val('');
         }
     });
+    socket.on('reciveMessage', function (data) {
+        // chatService.listConver[chatService.getPosConver(data.room.id)].Messages.push({
+        //     sender_id: data.sender_id,
+        //     message: data.content
+        // });
+        if (self.curCon.id == data.room.id) {
+            $('#list-message').html('');
+            get();
+        }
+    });
+    
 }

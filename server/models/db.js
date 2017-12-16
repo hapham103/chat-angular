@@ -6,6 +6,7 @@ var basename = path.basename(module.filename);
 var sequelize = new Sequelize("chat_angular", "root", "", {
     dialect: 'mysql'
 });
+var Op = Sequelize.Op;
 var db = {};
 fs
     .readdirSync(__dirname)
@@ -53,5 +54,6 @@ var models = sequelize.models;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Op = Op;
 
 module.exports = db;

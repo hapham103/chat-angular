@@ -6,7 +6,7 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(authentication, $location, chatService) {
+function Controller(authentication, chatService, $location, DialogService) {
     let self = this;
     self.avatarUrl = chatService.curUser.avatar;
     self.username = chatService.curUser.username;
@@ -14,5 +14,9 @@ function Controller(authentication, $location, chatService) {
     self.logout = function () {
         authentication.logout();
         $location.path('/');
+    }
+    self.showModal = function(){
+        console.log('show modal');
+        DialogService.newConversation();
     }
 }
