@@ -8,26 +8,17 @@ angular.module(componentName, ['ngEventEmitter'])
 
 function Controller(chatService, $emit) {
     let self = this;
-    chatService.getConversationList()
-        .then(function(conversations){
-            self.conversations = conversations.data;
-            console.log('listCOn: ', self.conversations);
-        }).catch(err=>{
-            console.log('err', err);
-        })
-    
-        var x={
-            id: [6,7]
-        }
-        var   conversation_id= 4;
+    self.conversations = chatService.listConver;
     
     $('#list').height($('body').height() - 50);
     $(window).resize(function () {
         $('#list').height($('body').height() - 50);
     });
     this.onchangeConversation = function(conver) {
-        apiService.curConversation = conver;
-        $emit('changeConversation', apiService.curConversation.id);
+        chatService.curConver = conver;
+        chatService.listMess = chatService.curConver.Messages;
+        $emit('changeConversation', chatService.curConver);
+        $emit('change', conver);
     };
     // console.log('list con: ', socket.id);
 }

@@ -1,6 +1,7 @@
 var models = require('../models/db');
 var User = models.User;
 var Conversation = models.Conversation;
+var Message = models.Message;
 
 module.exports.getConversationList = function(req, res){
 	Conversation.findAll({
@@ -10,6 +11,8 @@ module.exports.getConversationList = function(req, res){
 			where: {
 				email: req.params.email
 			}
+		}, {
+			model: Message,
 		}]
 	}).then(data => {
 		res.send(data);

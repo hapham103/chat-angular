@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
+var server = require('http').Server(app);
+
 var path = require('path');
+
+var io = require('socket.io')(server);
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -20,6 +24,14 @@ app.use('/api', routesApi);
 
 
 
-app.listen(3000, function () {
+server.listen(3000, function () {
 	console.log('listening on port 3000');
-})
+});
+
+io.on('connection', function (socket) {
+	console.log('Connection!');
+	socket.on('sendMessage', function(data){
+		io.in(data.room_id).emit('reciveMessage', data);
+	})
+	
+});

@@ -6,15 +6,13 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'details'
     });
 
-function Controller(db, $on) {
+function Controller(chatService, $on) {
     let self = this;
-    this.curCon;
-    this.title;
-    this.avatarUrl;
+
     function get() {
-        self.curCon = db.curConversation;
+        self.curCon = chatService.curConver;
         self.title = self.curCon.title;
-        self.avatarUrl = self.curCon.avatarUrl;
+        self.avatarUrl = self.curCon.avatar;
     }
     get();
     $('#details').height($('body').height() - 50);

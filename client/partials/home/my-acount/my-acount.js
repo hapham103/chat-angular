@@ -6,16 +6,11 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(authentication, $location) {
+function Controller(authentication, $location, chatService) {
     let self = this;
-    authentication.getCurrentUser()
-        .then(function(user){
-            console.log('user', user);
-            self.username = user.data.username;
-            self.avatarUrl = user.data.avatar;
-        }).catch(err=> {
-            console.log('err',err);
-        })
+    self.avatarUrl = chatService.curUser.avatar;
+    self.username = chatService.curUser.username;
+
     self.logout = function () {
         authentication.logout();
         $location.path('/');
