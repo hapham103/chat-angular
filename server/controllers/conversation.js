@@ -23,7 +23,11 @@ module.exports.getConversation = function(req, res) {
     Conversation.findById(req.params.conversationid,{
 		include: [{
 			model: User,
-			attributes: ['id', 'email', 'avatar', 'username']
+		}, {
+			model: models.Message,
+			include: {
+				model: User,
+			}
 		}]
 	}).then(data=>{
     	res.send(data);

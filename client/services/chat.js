@@ -68,6 +68,7 @@ function chat ($http, $window, authentication) {
         listUser = users.data;
         console.log('listUser:' ,listUser);
     })
+    
     var getUser = function (id) {
         for( let i=0; i<listUser.length; i++ )
             if( listUser[i].id == id )
@@ -78,6 +79,7 @@ function chat ($http, $window, authentication) {
             if (listConver[i].id == id)
                 return i;
     }
+   
     return {
         listUser: listUser,
         curUser: curUser,

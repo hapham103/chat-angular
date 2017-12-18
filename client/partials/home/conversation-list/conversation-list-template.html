@@ -5,9 +5,9 @@
 </div>
 <div class="list-conversation">
     <ul>
-        <li ng-repeat="conversation in conversationList.conversations | filter:{title: filter}" 
+        <li ng-repeat="conversation in conversationList.conversations | filter: {title: filter} track by $index" 
             class="item-conversation">
-            <a href="" class="item-link" ng-click="conversationList.onchangeConversation(conversation)">
+            <a href="" class="item-link" ng-click="conversationList.onchangeConversation(conversation, $index)">
                 <div style="height: 65px">
                     <img ng-src="{{conversation.avatar}}" alt="" style="height: 50px; width: 50px" class="img-circle">
                     <span>{{conversation.title}}</span>

@@ -35,8 +35,8 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('sendMessage', function(data){
-
-		console.log(data.room.id);
-		io.in(data.room.id).emit('reciveMessage', data);
+		
+		console.log(data.content);
+		io.in(data.room.id).emit('receiveMessage', data);
 	});
 });

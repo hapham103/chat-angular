@@ -1,7 +1,8 @@
 <div class="container-fluid" id="list-message" style="overflow-y: auto">
     <div class="" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
         <div ng-if="chat.showSenderUsername(mess.sender_id, $index)" 
-            style="color: rgba(0, 0, 0, .40); padding-left: 40px; font-size: 13px; padding-bottom: 5px">
+            class="first"
+            >
             {{mess.User.username}}
         </div>
         <img class="img-circle" 
@@ -12,9 +13,10 @@
         <div ng-if="chat.notShowAvatar(mess.sender_id, $index)" class="empty" ></div>
         
         <span class="mess">{{mess.message}}</span>
-        <span class="time">{{mess.createdAt}}</span>
+        <!-- <span class="time">{{mess.createdAt}}</span> -->
        
     </div>
+    
 </div>
 <div id="chat" >
 <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>
