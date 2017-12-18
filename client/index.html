@@ -39,6 +39,12 @@
 </head>
 <body ng-app="chat-app" >
     <ui-view></ui-view>
+   
+        <form action="/upload/file" enctype="multipart/form-data" method="post">
+            <input type="file" name="upload" multiple accept="image/*">
+            <input type="submit" value="Upload">
+        </form>
+        
     <script>
         let socket = io.connect('http://localhost:3000');    
     </script>
