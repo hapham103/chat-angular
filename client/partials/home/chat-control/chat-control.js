@@ -6,16 +6,14 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chatCtrl'
     });
 
-function Controller(db, $on) {
+function Controller(chatService, $on) {
     let self = this;
-    this.curCon;
-    this.title;
     function get() {
-        self.curCon = db.curConversation;
-        self.title = self.curCon.title;
+        // self.curCon = db.curConversation;
+        self.title = chatService.curConver.title;
     }
     get();
-    $on('changeConversation', function() {
+    $on('changeConversation', function(data) {
         get();
     });
 }

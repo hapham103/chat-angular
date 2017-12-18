@@ -6,6 +6,7 @@ var basename = path.basename(module.filename);
 var sequelize = new Sequelize("chat_angular", "root", "", {
     dialect: 'mysql'
 });
+var Op = Sequelize.Op;
 var db = {};
 fs
     .readdirSync(__dirname)
@@ -48,10 +49,15 @@ db.User.hasMany(db.Message, {
         allowNull: false
     }
 })
+db.Message.belongsTo(db.User, { 
+    foreignKey: 'sender_id', 
+    targetKey: 'id' 
+});
 
 var models = sequelize.models;
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+db.Op = Op;
 
 module.exports = db;

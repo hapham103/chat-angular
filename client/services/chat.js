@@ -59,9 +59,34 @@ function chat ($http, $window, authentication) {
             }
         });
     }
-    
+    var curUser = {};
+    var listConver = [];
+    var curConver = {};
+    var listMess = [];
+    var listUser = [];
+    getUserList().then(function (users) {
+        listUser = users.data;
+        console.log('listUser:' ,listUser);
+    })
+    var getUser = function (id) {
+        for( let i=0; i<listUser.length; i++ )
+            if( listUser[i].id == id )
+                return listUser[i];
+    }
+    var getPosConver = function(id) {
+        for (let i = 0; i < listConver.length; i++)
+            if (listConver[i].id == id)
+                return i;
+    }
     return {
+        listUser: listUser,
+        curUser: curUser,
+        listConver: listConver,
+        curConver: curConver,
+        listMess: listMess,
+        getUser: getUser,
         getUserList: getUserList,
+        getPosConver: getPosConver,
         createConversation: createConversation,
         getConversation: getConversation,
         getConversationList: getConversationList,

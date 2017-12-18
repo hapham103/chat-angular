@@ -1,6 +1,7 @@
 var models = require('../models/db');
 var User = models.User;
 var Conversation = models.Conversation;
+var Message = models.Message;
 
 module.exports.getConversationList = function(req, res){
 	User.findOne({

@@ -93,23 +93,32 @@ a.item-link:focus>div, a.item-link:hover>div{
     height: 60px; 
     padding: 0; 
  }
+ .left {
+      margin: 5px 10px;
+    text-align: left";
+ }
+ .right {
+     margin: 12px 10px;
+    text-align: right;
+ }
 .cur {
     margin: 12px 10px;
     text-align: right;
 }
 .chat {
+    clear: both;
     margin: 5px 10px;
     text-align: left";
 }
-.cur>span, .chat>span {
+.cur .mess, .chat .mess {
     padding: 6px 12px;
     border-radius: 15px;
 }
-.cur>span {
+.cur .mess {
     background: #0084ff;
     color: #fff";
 }
-.chat>span {
+.chat .mess {
     margin-left: 5px;
     background: #f1f0f0;
 }
@@ -118,4 +127,21 @@ textarea {
     width: 100%; 
     border: none; 
     padding: 15px;
+}
+.empty{
+    float: left;
+    width: 32px; 
+    height: 32px;
+}
+.time{
+    display: none;
+    background: rgb(14, 13, 13);
+    color: white;
+    z-index: 1000;
+}
+.mess:hover + .time{
+    display: inline;
+}
+.mess:hover ~ span{
+    display: inline;
 }
