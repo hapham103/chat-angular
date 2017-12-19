@@ -110,7 +110,7 @@ function Controller(chatService, $on) {
         
         if(self.curConver.id == data.room.id) {
             
-            self.listMess.push({
+            chatService.listMess.push({
                 id: chatService.listMess[chatService.listMess.length-1].id +1,
                 message_type: "text",
                 message: data.content,
@@ -119,8 +119,8 @@ function Controller(chatService, $on) {
                 User: data.sender
             });
             console.log('curUser', self.curUser.username);
-            console.log('add mess => listmess: ', self.listMess);
             get();
+            console.log('add mess => listmess: ', self.listMess);
         
         }
     });
