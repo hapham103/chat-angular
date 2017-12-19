@@ -6,13 +6,14 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'details'
     });
 
-function Controller(chatService, $on) {
+function Controller(chatService, $on, DialogService) {
     let self = this;
 
     function get() {
-        self.curCon = chatService.curConver;
-        self.title = self.curCon.title;
-        self.avatarUrl = self.curCon.avatar;
+        self.curConver = chatService.curConver;
+        self.title = self.curConver.title;
+        self.avatarUrl = self.curConver.avatar;
+        self.participants = self.curConver.Users;
     }
     get();
     $('#details').height($('body').height() - 50);
@@ -21,4 +22,9 @@ function Controller(chatService, $on) {
     $on('changeConversation', function () {
         get();
     });
+
+    self.showModal = function () {
+        console.log('show modal');
+        DialogService.addParticipant();
+    }
 }

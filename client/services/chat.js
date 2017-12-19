@@ -64,10 +64,19 @@ function chat ($http, $window, authentication) {
     var curConver = {};
     var listMess = [];
     var listUser = [];
-    getUserList().then(function (users) {
-        listUser = users.data;
-        console.log('listUser:' ,listUser);
-    })
+    var refresh = function(){
+        curUser = {};
+        listConver = [];
+        curConver = {};
+        listMess = [];
+        listUser = [];
+        getUserList().then(function (users) {
+            listUser = users.data;
+            console.log('listUser:', listUser);
+        })
+    }
+    
+    refresh();
     
     var getUser = function (id) {
         for( let i=0; i<listUser.length; i++ )
@@ -95,6 +104,7 @@ function chat ($http, $window, authentication) {
         getMessages: getMessages,
         // updateConversation: updateConversation,
         addUserToConversation: addUserToConversation,
-        sendMessage: sendMessage
+        sendMessage: sendMessage,
+        refresh: refresh
     }
 }

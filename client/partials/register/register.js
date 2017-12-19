@@ -48,7 +48,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
         authentication.register(newUser)
             .then(function (user){
                 console.log("success");
-                $location.path('/home');
+                $location.path('/');
             }).catch(function(err) {
                 self.formError = "Email existed!";
                 console.log('err', err);

@@ -41,6 +41,21 @@
         <span>Thông báo</span>
     </div>
 </div> -->
-<div>
-    
+<div id="participants">
+    <div>
+        <button style="border: none; background: none" ng-click="details.showModal()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <span>Thêm người</span>
+    </div>
+    <ul>
+        <li ng-repeat="par in details.participants track by $index" class="item-par">
+            <a href="" class="item-link">
+                <div style="height: 50px">
+                    <img ng-src="{{par.avatar}}" alt="" style="height: 35px; width: 35px" class="img-circle">
+                    <span>{{par.username}}</span>
+                </div>
+            </a>
+        </li>
+    </ul>
 </div>
