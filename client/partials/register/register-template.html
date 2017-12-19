@@ -6,4 +6,6 @@ username: <input type="" name="" value="" id="uname" ng-model="registerCtrl.user
 avatar: <input type="" name="" value="" id="avt" ng-model="registerCtrl.user.avt">
 password:<input type="password" name="" value="" id="pwd" ng-model="registerCtrl.user.password">
 retype password:<input type="password" name="" value="" id="rpwd" ng-model="registerCtrl.user.repassword">
-<button type="submit" ng-click="registerCtrl.register()">register</button>
+<div class="button" ngf-select ng-model="files" ngf-multiple="true" ngf-model-invalid="errorFile">Select</div>
+<!-- <input id="file-upload" type="file" name="upload" multiple  ng-model="registerCtrl.myfile"> -->
+<button type="submit" ng-click="registerCtrl.register(files[0])">register</button>

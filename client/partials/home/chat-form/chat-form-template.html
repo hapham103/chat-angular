@@ -13,9 +13,12 @@
         
         <span class="mess">{{mess.message}}</span>
         <span class="time">{{mess.createdAt}}</span>
-       
     </div>
 </div>
 <div id="chat" >
-<textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>
+    <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>
+    <span>
+        <i class="glyphicon glyphicon-picture" ngf-select ng-model="files" accept='image/*' ngf-multiple="true" ngf-model-invalid="errorFile"></i> 
+        
+    </span>
 </div>

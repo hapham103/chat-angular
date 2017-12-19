@@ -4,25 +4,29 @@ var jsonResponse = require('../response');
 
 module.exports.postFile = function(req,res) {
     var form = new formidable.IncomingForm();
-    form.parse(req);
+
     form.on('fileBegin', function(name, file) {
         file.name = Date.now() + '_' + file.name;
         file.path = "./uploads/file/" + file.name;
+        console.log('file.path 1', file.path, file.name);
     })
     form.on('file', function(name, file){
         console.log('uploaded file', file.name);
         res.json({
             status: 100,
-            content: file.name
+            content: file.path
         });
     })
     form.on('error', function (err) {
         console.log('An error has occured: \n' + err);
-        res.json({status: 101});
+        res.json({
+            status: 101
+        });
     });
     form.on('end', function () {
         console.log('done upload!');
     });
+    form.parse(req);
 }
 module.exports.postImage = function (req, res) {
     var form = new formidable.IncomingForm();
