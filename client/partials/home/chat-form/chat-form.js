@@ -17,7 +17,7 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chat'
     });
 
-function Controller(chatService, $on) {
+function Controller(chatService, $on, uploadService) {
     let self = this;
     this.curConver = chatService.curConver;
     this.listMess = chatService.listMess;
@@ -40,6 +40,24 @@ function Controller(chatService, $on) {
         console.log('chatService.curConver: ', chatService.curConver);
     }
     get();
+
+    this.sendImage = function (){
+        var file = self.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
+
+        uploadService.uploadFile(formData)
+            .then((rs)=>{
+                console.log('uploadFile ok', rs);
+                chatService.sendMessage(self.curConver.id, {
+                    message: rs.data.content,
+                    message_type: "image",
+                    sender_id: self.curUser.id
+                })
+            }).catch((err)=> {
+                console.log("upload file fail", err);
+            })
+    }
 
     this.float = function(id) {
         return (id==self.curUser.id)?"cur":"chat";

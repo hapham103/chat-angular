@@ -23,6 +23,7 @@ app.get('/', function (req, res) {
 app.use('/action', authRoutesApi);
 // app.use(authVerify());
 // app.use('/api', authVerify(), routesApi);
+app.use('/upload', uploadRoutesApi);
 app.use('/api', routesApi);
 
 server.listen(3000, function () {
