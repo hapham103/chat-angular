@@ -20,7 +20,8 @@ app.get('/', function (req, res) {
 });
 app.use('/action', authRoutesApi);
 // app.use(authVerify());
-app.use('/api', authVerify(), routesApi);
+// app.use('/api', authVerify(), routesApi);
+app.use('/api', routesApi);
 
 server.listen(3000, function () {
 	console.log('listening on port 3000');

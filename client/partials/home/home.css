@@ -31,7 +31,7 @@ textarea:focus, input:focus {
 }
 
 /* list conversation*/
-.list-conversation>ul {
+ul {
     padding: 0px;
 }
 
@@ -47,7 +47,7 @@ input.search {
     padding-left: 15px; 
     width: 100%
 }
-.item-conversation {
+.item-conversation, .item-par {
     list-style: none;
 }
 .item-link, a.item-link:hover, a.item-link:focus {
@@ -78,6 +78,9 @@ a.item-link:focus>div, a.item-link:hover>div{
 }
 #details {
     padding: 0px 0;
+}
+#participants {
+    padding: 15px;
 }
 .set {
     padding: 10px;

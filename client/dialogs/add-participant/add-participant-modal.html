@@ -1,0 +1,69 @@
+<div class="modal fade new-conversation" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" ng-click="Modal.cancel()" class="close"><span
+                        aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 id="myModalLabel" class="modal-title">Thêm người vào cuộc trò chuyện</h4>
+            </div>
+            <div class="modal-body body">
+                <div class="container-fluid">
+                    <div class="form-group row">
+                        <div class="col-sm-8 users">
+                            <div class="search">
+                                <input type="text" name="receiver" placeholder="Tìm kiếm mọi người" ng-model="filter">
+                            </div>
+                            <div class="user-list">
+                                <ul>
+                                    <li ng-repeat="user in Modal.users | filter: {username: filter}" ng-if="user.id !== Modal.currentUser.id" ng-click="Modal.addReceiver(user)">
+                                        <img ng-src="{{user.avatar}}" alt="avatar">
+                                        <b>{{user.username}}</b>
+                                        <i class="glyphicon glyphicon-ok-sign" ng-show="Modal.isChecked(user)"></i>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4 receivers">
+                            <b class="count">Gửi đến: {{Modal.numberOfReceiver}}</b>
+                            <ul>
+                                <li ng-repeat="receiver in Modal.receivers">
+                                   <img ng-src="{{receiver.avatar}}" alt="avatar">
+                                   <b>{{receiver.username}}</b>
+                                   <span ng-click="Modal.deleteReceiver(receiver)">x</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <label for="receiver" class="col-sm-2 control-label">To:</label>
+                        <div class="col-sm-10">
+                            <ul ng-show="Modal.receivers" class="receiver">
+                                <li class="receiver" ng-repeat="receiver in Modal.receivers">
+                                    {{receiver.username}} t
+                                    <span class="close" ng-click="Modal.deleteReceiver(receiver)">x</span>
+                                </li>
+                            </ul>
+                            <input id="receiver" name="receiver" class="form-control"
+                                ng-model="Modal.conversationMember">
+                            <div class="contact" ng-show="Modal.conversationMember">
+                                <p>Contact</p>
+                                <ul class="friendList">
+                                    <li ng-repeat="user in Modal.users | filter: {username: Modal.conversationMember}"
+                                        ng-if="Modal.receivers.indexOf(user)===-1"
+                                        ng-click="Modal.addReceiver(user)">
+                                        <img class="small-round" ng-src="{{user.avatar}}">
+                                        <p class="user-name"> {{user.username}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="Modal.cancel()" type="button" class="btn btn-default">Cancel</button>
+                <button ng-click="Modal.onSubmit()" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

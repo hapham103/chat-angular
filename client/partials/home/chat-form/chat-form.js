@@ -102,6 +102,7 @@ function Controller(chatService, $on) {
             socket.emit('sendMessage', { content: content, room: self.curConver, sender: self.curUser });
             e.preventDefault();
             $('textarea').val('');
+            
         }
     });
     
@@ -109,9 +110,7 @@ function Controller(chatService, $on) {
         console.log('client reciveMessage');
         
         if(self.curConver.id == data.room.id) {
-            
             chatService.listMess.push({
-                id: chatService.listMess[chatService.listMess.length-1].id +1,
                 message_type: "text",
                 message: data.content,
                 sender_id: data.sender.id,

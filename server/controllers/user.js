@@ -33,11 +33,11 @@ module.exports.getUserByEmail = function (req, res) {
 				}, 
 				{ 
 					model: User, 
-					where: { 
-						email: { 
-							[Op.notLike]: req.params.email
-						}
-					}
+					// where: { 
+					// 	email: { 
+					// 		[Op.notLike]: req.params.email
+					// 	}
+					// }
 				}]
 		}
 	}).then(user => {
