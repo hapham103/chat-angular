@@ -14,7 +14,7 @@ module.exports.postFile = function(req,res) {
         console.log('uploaded file', file.name);
         res.json({
             status: 100,
-            content: file.path
+            content: 'file/'+file.name
         });
     })
     form.on('error', function (err) {
@@ -39,7 +39,7 @@ module.exports.postImage = function (req, res) {
         console.log('uploaded image', file.name);
         res.json({
             status: 100,
-            content: file.name
+            content: 'image/'+file.name
         });
     })
     form.on('error', function (err) {
@@ -61,7 +61,7 @@ module.exports.postAvatar = function(req, res) {
         console.log('uploaded avatar', file.name);
         res.json({
             status: 100,
-            content: file.name
+            content: 'avatar/'+file.name
         });
     })
     form.on('error', function (err) {

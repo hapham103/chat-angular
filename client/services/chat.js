@@ -1,12 +1,12 @@
 angular.module('chat-app').service('chatService', chat);
 function chat ($http, $window, authentication) {
-    var token = authentication.getToken();
-    var payload = JSON.parse($window.atob(token.split('.')[1]));
+    // var token = authentication.getToken();
+    // var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-    console.log('payload.id', payload.id);
+
     var getUserList = function() {
         return $http.get('/api/users', {
-            headers: {'Authorization': token}
+            headers: { 'Authorization': authentication.getToken()}
         });
     }
     var getConversationList = function(){
@@ -20,20 +20,20 @@ function chat ($http, $window, authentication) {
     
     var getConversation = function(conversationid){
         return $http.get('/api/conversations/'+ conversationid, {
-            headers: {'Authorization': token}
+            headers: { 'Authorization': authentication.getToken()}
         });
     }
 
     var getMessages = function(conversationid){
         return $http.get('/api/conversations/'+ conversationid +'/messages', {
-            headers: {'Authorization': token}
+            headers: { 'Authorization': authentication.getToken()}
         })
     }
     
     var sendMessage = function (conversationid, message){
         return $http.post('/api/conversations/'+conversationid + '/messages/new', message, {
             headers: {
-                'Authorization': token
+                'Authorization': authentication.getToken()
             }
         });
     }
@@ -41,7 +41,7 @@ function chat ($http, $window, authentication) {
     var createConversation = function(conversation) {
         return $http.post('/api/conversations/new', conversation, {
             headers: {
-                'Authorization': token
+                'Authorization': authentication.getToken()
             }
         });
     }
@@ -55,7 +55,7 @@ function chat ($http, $window, authentication) {
     var addUserToConversation = function(conversationid, newuser){
         return $http.put('/api/conversations/' + conversationid + '/add', newuser, {
             headers: {
-                'Authorization': token
+                'Authorization': authentication.getToken()
             }
         });
     }
@@ -68,6 +68,7 @@ function chat ($http, $window, authentication) {
         listUser = users.data;
         console.log('listUser:' ,listUser);
     })
+    
     var getUser = function (id) {
         for( let i=0; i<listUser.length; i++ )
             if( listUser[i].id == id )
@@ -78,6 +79,7 @@ function chat ($http, $window, authentication) {
             if (listConver[i].id == id)
                 return i;
     }
+   
     return {
         listUser: listUser,
         curUser: curUser,

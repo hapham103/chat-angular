@@ -37,33 +37,7 @@ function Controller(chatService, $on) {
 
         self.curConver = chatService.curConver;
         self.listMess = chatService.listMess;
-        // self.curUser = chatService.curUser;
-        // let tem; let first = 0;
-        // self.messages.forEach(function (mes) {
-        //     if (first == 0) {
-        //         tem = mes.sender_id;
-        //         first--;
-        //     }
-        //     if (mes.sender_id == self.curUser.id) {
-        //         $('#list-message').append('<div class="cur"><span>' + mes.message + '</span></div>');
-        //     } else {
-        //         if (tem != mes.sender_id || first == -1)
-        //             $('#list-message')
-        //                 .append('<div class="chat"><img class="img-circle" style="width: 28px; height: 28px" src="'
-        //                 + chatService.getUser(mes.sender_id).avatar
-        //                 + '"><span>'
-        //                 + mes.message +
-        //                 '</span></div>');
-        //         else
-        //             $('#list-message')
-        //                 .append('<div class="chat"><span>'
-        //                 + mes.message +
-        //                 '</span></div><div style="clear: both"></div>');
-        //     }
-        //     tem = mes.sender_id;
-        //     first--;
-        // });
-        // console.log('get success'); 
+        console.log('chatService.curConver: ', chatService.curConver);
     }
     get();
 
@@ -79,9 +53,11 @@ function Controller(chatService, $on) {
         else return false;
     }
     this.notShowAvatar = function (id, index) {
-        if (id != self.curUser.id && id == self.listMess[index + 1].sender_id)
-            return true;
-        else return false;
+        if (index < self.listMess.length-1)
+            if (id != self.curUser.id && id == self.listMess[index + 1].sender_id)
+                return true;
+            else return false;
+        return false;
     }
     this.showSenderUsername = function(id, index){
         if (id != self.curUser.id && self.curConver.Users.length > 1){
@@ -99,8 +75,8 @@ function Controller(chatService, $on) {
         return true;
         return false;
     }
-    $on('changeConversation', function () {
-        console.log('chatform: ', chatService.curConver);
+    $on('changeConversation', function (data) {
+        console.log('chatform: ', data);
         if (self.curConver != chatService.curConver) {
             console.log('diff');
 
@@ -111,19 +87,41 @@ function Controller(chatService, $on) {
 
     $('textarea').keypress(function (e) {
         if (e.which == 13 && !e.shiftKey) {
-            socket.emit('sendMessage', { content: $('textarea').val(), room: self.curCon, sender_id: self.curUser.id });
+            var content = $('textarea').val().replace("\n", "<br>");
+            var message = {
+                message: content,
+                message_type: 'text',
+                sender_id: self.curUser.id
+            }
+            chatService.sendMessage(self.curConver.id, message)
+                .then(function (mess) {
+                    console.log("send message success");
+                }).catch(function (err) {
+                    console.log('err', err);
+                })
+            socket.emit('sendMessage', { content: content, room: self.curConver, sender: self.curUser });
             e.preventDefault();
             $('textarea').val('');
         }
     });
-    socket.on('reciveMessage', function (data) {
-        // chatService.listConver[chatService.getPosConver(data.room.id)].Messages.push({
-        //     sender_id: data.sender_id,
-        //     message: data.content
-        // });
-        if (self.curCon.id == data.room.id) {
-            $('#list-message').html('');
+    
+    socket.on('receiveMessage', function (data) {
+        console.log('client reciveMessage');
+        
+        if(self.curConver.id == data.room.id) {
+            
+            chatService.listMess.push({
+                id: chatService.listMess[chatService.listMess.length-1].id +1,
+                message_type: "text",
+                message: data.content,
+                sender_id: data.sender.id,
+                conversation_id: data.room.id,
+                User: data.sender
+            });
+            console.log('curUser', self.curUser.username);
             get();
+            console.log('add mess => listmess: ', self.listMess);
+        
         }
     });
     
