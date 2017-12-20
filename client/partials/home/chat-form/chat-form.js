@@ -17,7 +17,7 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chat'
     });
 
-function Controller(chatService, $on) {
+function Controller(chatService, $on, $timeout) {
     let self = this;
     this.curConver = chatService.curConver;
     this.listMess = chatService.listMess;
@@ -40,7 +40,11 @@ function Controller(chatService, $on) {
         console.log('chatService.curConver: ', chatService.curConver);
     }
     get();
-
+    var test = function(){
+        self.listMess = chatService.listMess;
+        $timeout(test);
+    }
+    $timeout(test);
     this.float = function(id) {
         return (id==self.curUser.id)?"cur":"chat";
     }
@@ -77,7 +81,7 @@ function Controller(chatService, $on) {
     }
     $on('changeConversation', function (data) {
         console.log('chatform: ', data);
-        if (self.curConver != chatService.curConver) {
+        if (self.curConver.id != chatService.curConver.id) {
             console.log('diff');
 
             // $('#list-message').html('');
@@ -101,26 +105,22 @@ function Controller(chatService, $on) {
                 })
             socket.emit('sendMessage', { content: content, room: self.curConver, sender: self.curUser });
             e.preventDefault();
-            $('textarea').val('');
-            
+            $('textarea').val(''); 
         }
     });
     
     socket.on('receiveMessage', function (data) {
         console.log('client reciveMessage');
-        
         if(self.curConver.id == data.room.id) {
-            chatService.listMess.push({
+            self.listMess.push({
                 message_type: "text",
                 message: data.content,
                 sender_id: data.sender.id,
                 conversation_id: data.room.id,
                 User: data.sender
             });
-            console.log('curUser', self.curUser.username);
             get();
-            console.log('add mess => listmess: ', self.listMess);
-        
+            console.log(self.listMess);
         }
     });
     

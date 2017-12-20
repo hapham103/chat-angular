@@ -15,6 +15,7 @@ function Controller(chatService, $emit) {
         $('#list').height($('body').height() - 50);
     });
     this.onchangeConversation = function(conver, index) {
+        $('textarea').focus();
         chatService.getConversation(conver.id)
             .then(function(conver){
                 if (conver.data.Users.length == 2) {
