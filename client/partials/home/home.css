@@ -89,9 +89,7 @@ a.item-link:focus>div, a.item-link:hover>div{
  #list-message, #chat {
     padding: 0 10px;
  }
-#list-message {
-    border-bottom: 1px solid rgba(0, 0, 0, .10);
-}
+
  #chat {
     height: 60px; 
     padding: 0; 
@@ -150,4 +148,11 @@ textarea {
 }
 .first{
     color: rgba(0, 0, 0, .40); padding-left: 40px; font-size: 13px; padding-bottom: 5px;
+}
+.dragarea {
+    border: 1px solid white;
+    border-bottom: 1px solid rgba(0, 0, 0, .10);
+}
+.dragover {
+    border: 1px solid #7be6f2;
 }

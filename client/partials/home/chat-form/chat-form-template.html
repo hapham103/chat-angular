@@ -1,5 +1,6 @@
-<div class="container-fluid" id="list-message" style="overflow-y: auto">
-    <div class="" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
+<div  id="list-message" class="container-fluid dragarea" style="overflow-y: auto" ngf-drop ngf-select ng-model="chat.dropFiles" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">
+    <!-- <img src="image/1513657247136_database.jpg" alt="test"> -->
+    <div class="x" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
         <div ng-if="chat.showSenderUsername(mess.sender_id, $index)" 
             class="first"
             >
@@ -19,5 +20,7 @@
     
 </div>
 <div id="chat" >
-<textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>
+    <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus style="width:50%"></textarea>
+    <i class="glyphicon glyphicon-picture" ngf-select ng-model="chat.images" accept='image/*' ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendImage(chat.images)"></i>
+    <i class="glyphicon glyphicon-file" ngf-select ng-model="chat.files" ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendFile(chat.files)"></i> 
 </div>

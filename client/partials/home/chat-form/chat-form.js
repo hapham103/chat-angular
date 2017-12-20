@@ -17,7 +17,7 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chat'
     });
 
-function Controller(chatService, $on, $timeout) {
+function Controller(chatService, $on, uploadService, $scope, $timeout) {
     let self = this;
     this.curConver = chatService.curConver;
     this.listMess = chatService.listMess;
