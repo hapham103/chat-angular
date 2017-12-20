@@ -1,4 +1,4 @@
-<div  id="list-message" class="container-fluid dragarea" style="overflow-y: auto" ngf-drop ngf-select ng-model="chat.dropFiles" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">
+<div  id="list-message" class="container-fluid dragarea" style="overflow-y: auto" ngf-drop ng-model="chat.dropFiles" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">
     <!-- <img src="image/1513657247136_database.jpg" alt="test"> -->
     <div class="x" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
         <div ng-if="chat.showSenderUsername(mess.sender_id, $index)" 
