@@ -17,7 +17,7 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chat'
     });
 
-function Controller(chatService, $on, uploadService) {
+function Controller(chatService, $on, uploadService, $scope) {
     let self = this;
     this.curConver = chatService.curConver;
     this.listMess = chatService.listMess;
@@ -41,8 +41,21 @@ function Controller(chatService, $on, uploadService) {
     }
     get();
 
-    this.sendImage = function (){
-        var image = self.images[0];
+    $scope.$watch('chat.dropFiles', function () {
+        console.log('watch ok');
+        if(self.dropFiles!==undefined){
+            if(self.dropFiles[0].type.indexOf("image/")!==-1){
+                self.sendImage(self.dropFiles);
+            }else{
+                self.sendFile(self.dropFiles);
+            }
+        }
+    });
+
+    
+    this.sendImage = function (images){
+        var image = images[0];
+        console.log('image', image.type);
         var formData = new FormData();
         formData.append('file', image);
 
@@ -58,8 +71,9 @@ function Controller(chatService, $on, uploadService) {
             })
     }
 
-    this.sendFile = function (){
-        var file = self.files[0];
+    this.sendFile = function (files){
+        var file = files[0];
+        console.log('file', file);
         var formData = new FormData();
         formData.append('file', file);
 
