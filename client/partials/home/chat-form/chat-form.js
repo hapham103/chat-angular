@@ -42,16 +42,32 @@ function Controller(chatService, $on, uploadService) {
     get();
 
     this.sendImage = function (){
+        var image = self.images[0];
+        var formData = new FormData();
+        formData.append('file', image);
+
+        uploadService.uploadImage(formData)
+            .then((rs)=>{
+                chatService.sendMessage(self.curConver.id, {
+                    message: rs.data.content,
+                    message_type: "image",
+                    sender_id: self.curUser.id
+                })
+            }).catch((err)=> {
+                console.log("upload image fail", err);
+            })
+    }
+
+    this.sendFile = function (){
         var file = self.files[0];
         var formData = new FormData();
         formData.append('file', file);
 
         uploadService.uploadFile(formData)
             .then((rs)=>{
-                console.log('uploadFile ok', rs);
                 chatService.sendMessage(self.curConver.id, {
                     message: rs.data.content,
-                    message_type: "image",
+                    message_type: "file",
                     sender_id: self.curUser.id
                 })
             }).catch((err)=> {
