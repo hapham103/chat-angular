@@ -99,7 +99,7 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
                     .then(function(con){
                         console.log('con', con);
                         
-                        
+                        con.data.Users = self.receivers;
                         if(self.receivers.length>1){
                             chatService.listConver.push(con.data);
                         }
