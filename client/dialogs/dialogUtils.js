@@ -99,7 +99,7 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
                     .then(function(con){
                         console.log('con', con);
                         
-                        con.data.Users = self.receivers;
+                        
                         if(self.receivers.length>1){
                             chatService.listConver.push(con.data);
                         }
@@ -112,8 +112,10 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
                         con.data.Messages = [];
                         chatService.curConver = con.data;
                         chatService.listMess = con.data.Messages;
-                        socket.emit('addConver', con.data);
                         $emit('addConver', con.data);
+                        
+                        socket.emit('addConver', {conver: con.data, sender: self.currentUser});
+                        
                     }).catch(err => {
                         console.log('createConversation err', err);
                     })

@@ -95,6 +95,9 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             return true;
         return false;
     }
+    socket.on('addListConver', function (data) {
+        socket.emit('joinRoomAdded', data);
+    })
     $on('changeConversation', function (data) {
         console.log('chatform: ', data);
         if (self.curConver.id != chatService.curConver.id) {

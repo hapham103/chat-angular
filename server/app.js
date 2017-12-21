@@ -45,10 +45,19 @@ io.on('connection', function (socket) {
 		console.log(data.content);
 		io.in(data.room.id).emit('receiveMessage', data);
 	});
-	socket.on('addConver', function (data) {
-		console.log('add');
+	socket.on('joinRoomAdded', function (data) {
 		socket.join(data.id);
-		socket.broadcast.emit('addListConver', data);
+	})
+	socket.on('addConver', function (data) {
+		console.log(data.id);
+		socket.join(data.conver.id);
+		if(data.conver.Users.length==1){
+			data.conver.title = data.sender.username;
+			data.conver.avatar = data.sender.avatar;
+		}
+		
+
+		socket.broadcast.emit('addListConver', data.conver);
 
 		// socket.join(data.id);
 	})
