@@ -47,6 +47,7 @@ io.on('connection', function (socket) {
 	});
 	socket.on('addConver', function (data) {
 		console.log('add');
+		socket.join(data.id);
 		socket.broadcast.emit('addListConver', data);
 
 		// socket.join(data.id);
