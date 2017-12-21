@@ -22,7 +22,12 @@ function Controller(chatService, $on, DialogService) {
     $on('changeConversation', function () {
         get();
     });
-
+    $on('addConver', function () {
+        get();
+    });
+    $on('changeCurCon', function () {
+        get();
+    });
     self.showModal = function () {
         console.log('show modal');
         DialogService.addParticipant();

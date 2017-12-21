@@ -4,8 +4,9 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
     let myDialogs = new Object();
     myDialogs.newConversation = function () {
         function ModalController(close) {
-
+            socket.emit('test');
             var self = this;
+            self.currentUser = chatService.curUser;
 
             chatService.getUserList()
                 .then(users=>{
@@ -44,15 +45,10 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
                 }
             };
 
-            authentication.getCurrentUser()
-                .then(user => {
-                    self.currentUser = user.data;
-                    console.log('user.data', user.data)
-                }).catch(err => {
-                    console.log('err', err);
-                })
+           
 
             self.onSubmit = function () {
+                
                 self.formError = "";
                 if (!self.receivers) {
                     console.log('try again');
@@ -65,20 +61,59 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
                         members.push(r.id);
                         conversationName = conversationName + ", " + r.username;
                     }
-                    let conversationInfo = {
-                        title: conversationName,
-                        members: members,
-                        avatar: "x"
+                    let conversationInfo={};
+                    if(self.receivers.length > 1){
+                        conversationInfo = {
+                            title: conversationName,
+                            members: members,
+                            avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4_xTTRxC3_MljWryPIq_7TvxHqzgn9aT7Lawf15wAaeteC0fF"
+                        }
+                    }else{
+                        conversationInfo = {
+                            title: "",
+                            members: members,
+                            avatar: ""
+                        }
                     }
-                    doSubmit(conversationInfo);
+                    let create = true;
+                    if(self.receivers.length==1){
+                        chatService.listConver.forEach(function(con) {
+                            console.log(con);
+                            if(con.Users.length==1 && con.Users[0].id == self.receivers[0].id){
+                                chatService.curConver = con;
+                                chatService.listMess = con.Messages;
+                                $emit('changeCurCon', chatService.curConver);
+                                create = false;
+                                self.cancel();
+                            }
+                                
+                        })
+                    }
+                    if(create)
+                        doSubmit(conversationInfo);
+                    
                 }
             };
             var doSubmit = function(info) {
                 chatService.createConversation(info)
                     .then(function(con){
                         console.log('con', con);
-                        $emit('addConver');
-                        chatService.listConver.push(con);
+                        
+                        
+                        if(self.receivers.length>1){
+                            chatService.listConver.push(con.data);
+                        }
+                        else{
+                            con.data.title = self.receivers[0].username;
+                            con.data.avatar = self.receivers[0].avatar;
+                            chatService.listConver.push(con.data);
+                        }
+                        con.data.Users = self.receivers;
+                        con.data.Messages = [];
+                        chatService.curConver = con.data;
+                        chatService.listMess = con.data.Messages;
+                        socket.emit('addConver', con.data);
+                        $emit('addConver', con.data);
                     }).catch(err => {
                         console.log('createConversation err', err);
                     })

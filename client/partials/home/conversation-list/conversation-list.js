@@ -6,10 +6,19 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'conversationList'
     });
 
-function Controller(chatService, $emit) {
+function Controller(chatService, $emit, $on, $timeout) {
     let self = this;
     self.conversations = chatService.listConver;
-    
+    socket.on('addListConver', function (data) {
+        console.log('add conversation');
+        chatService.listConver.push(data);
+        self.conversations = chatService.listConver;
+    });
+    var g = function () {
+        self.conversations = chatService.listConver;
+        $timeout(g);
+    };
+    $timeout(g);
     $('#list').height($('body').height() - 50);
     $(window).resize(function () {
         $('#list').height($('body').height() - 50);
@@ -18,8 +27,9 @@ function Controller(chatService, $emit) {
         return self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message;
     };
     this.hasMess = function (index) {
-        if (self.conversations[index].Messages.length>0)
-            return true;
+        if (self.conversations[index].Messages != undefined)
+            if (self.conversations[index].Messages.length > 0)
+                return true;
         return false;
     }
     this.onchangeConversation = function(conver, index) {

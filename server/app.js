@@ -37,10 +37,18 @@ io.on('connection', function (socket) {
 			socket.join(room.id);
 		});
 	});
-
+	socket.on('test', function (params) {
+		console.log('test');
+	})
 	socket.on('sendMessage', function(data){
 		
 		console.log(data.content);
 		io.in(data.room.id).emit('receiveMessage', data);
 	});
+	socket.on('addConver', function (data) {
+		console.log('add');
+		socket.broadcast.emit('addListConver', data);
+
+		// socket.join(data.id);
+	})
 });

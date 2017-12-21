@@ -16,4 +16,11 @@ function Controller(chatService, $on) {
     $on('changeConversation', function(data) {
         get();
     });
+
+    $on('addConver', function (params) {
+        get();
+    })
+    $on('changeCurCon', function (params) {
+        get();
+    })
 }

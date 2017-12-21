@@ -41,7 +41,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     }
     get();
     var test = function(){
-        self.listMess = self.listMess;
+        self.listMess = chatService.listMess;
         $timeout(test);
     }
     $timeout(test);
@@ -104,7 +104,20 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             get();
         }
     });
-
+    $on('addConver', function (params) {
+        if (self.curConver.id != chatService.curConver.id) {
+            console.log('diff');
+            // $('#list-message').html('');
+            get();
+        }
+    })
+    $on('changeCurCon', function (params) {
+        if (self.curConver.id != chatService.curConver.id) {
+            console.log('diff');
+            // $('#list-message').html('');
+            get();
+        }
+    })
     $scope.$watch('chat.dropFiles', function () {
         console.log('watch ok');
         if (self.dropFiles !== undefined) {
@@ -180,7 +193,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     socket.on('receiveMessage', function (data) {
         console.log('client reciveMessage');
         if(self.curConver.id == data.room.id) {
-            self.listMess.push({
+            chatService.listMess.push({
                 message_type: "text",
                 message: data.content,
                 sender_id: data.sender.id,
