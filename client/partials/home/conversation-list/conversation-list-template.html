@@ -9,15 +9,17 @@
             class="item-conversation">
             <a href="" class="item-link" ng-click="conversationList.onchangeConversation(conversation, $index)">
                 <div style="height: 65px">
-                    <img ng-src="{{conversation.avatar}}" alt="" style="height: 50px; width: 50px" class="img-circle">
-                    <span>
-                        <div>
+                    <div class="col-sm-3" style="padding-left: 0">
+                        <img ng-src="{{conversation.avatar}}" alt="" style="height: 50px; width: 50px" class="img-circle">
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row">
                             {{conversation.title}}
                         </div>
-                        <div style="overflow-x: hidden" ng-if="conversationList.hasMess($index)">
+                        <div style="overflow-x: hidden" ng-if="conversationList.hasMess($index)" class="row">
                             {{conversationList.lastMess($index)}}
                         </div>
-                    </span>
+                    </div>
                 </div>
             </a>
         </li>
