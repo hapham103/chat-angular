@@ -10,7 +10,14 @@
             <a href="" class="item-link" ng-click="conversationList.onchangeConversation(conversation, $index)">
                 <div style="height: 65px">
                     <img ng-src="{{conversation.avatar}}" alt="" style="height: 50px; width: 50px" class="img-circle">
-                    <span>{{conversation.title}}</span>
+                    <span>
+                        <div>
+                            {{conversation.title}}
+                        </div>
+                        <div style="overflow-x: hidden" ng-if="conversationList.hasMess($index)">
+                            {{conversationList.lastMess($index)}}
+                        </div>
+                    </span>
                 </div>
             </a>
         </li>

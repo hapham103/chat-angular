@@ -14,6 +14,14 @@ function Controller(chatService, $emit) {
     $(window).resize(function () {
         $('#list').height($('body').height() - 50);
     });
+    this.lastMess = function (index) {
+        return self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message;
+    };
+    this.hasMess = function (index) {
+        if (self.conversations[index].Messages.length>0)
+            return true;
+        return false;
+    }
     this.onchangeConversation = function(conver, index) {
         $('textarea').focus();
         chatService.getConversation(conver.id)

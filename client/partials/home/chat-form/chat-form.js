@@ -41,7 +41,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     }
     get();
     var test = function(){
-        self.listMess = chatService.listMess;
+        self.listMess = self.listMess;
         $timeout(test);
     }
     $timeout(test);
@@ -189,6 +189,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             });
             get();
             console.log(self.listMess);
+        }else{
+            
         }
     });
     
