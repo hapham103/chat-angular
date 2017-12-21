@@ -48,52 +48,6 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     this.float = function(id) {
         return (id==self.curUser.id)?"cur":"chat";
     }
-    $scope.$watch('chat.dropFiles', function () {
-        console.log('watch ok');
-        if(self.dropFiles!==undefined){
-            if(self.dropFiles[0].type.indexOf("image/")!==-1){
-                self.sendImage(self.dropFiles);
-            }else{
-                self.sendFile(self.dropFiles);
-            }
-        }
-    });
-        
-    this.sendImage = function (images){
-        var image = images[0];
-        console.log('image', image.type);
-        var formData = new FormData();
-        formData.append('file', image);
-         
-        uploadService.uploadImage(formData)
-            .then((rs)=>{
-                chatService.sendMessage(self.curConver.id, {
-                    message: rs.data.content,
-                    message_type: "image",
-                    sender_id: self.curUser.id
-                })
-            }).catch((err)=> {
-                console.log("upload image fail", err);
-            })
-    }
-         
-    this.sendFile = function (files){
-        var file = files[0];
-        console.log('file', file);
-        var formData = new FormData();
-        formData.append('file', file);
-         
-        uploadService.uploadFile(formData)
-            .then((rs)=>{
-                chatService.sendMessage(self.curConver.id, {
-                    message: rs.data.content,
-                    message_type: "file",
-                    sender_id: self.curUser.id
-                })
-            }).catch((err)=> {
-                console.log("upload file fail", err);
-            })
-    }
     
     this.createAvatar = function(id) {
         return (id == self.curUser.id )? false : true;
@@ -126,6 +80,21 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
         return true;
         return false;
     }
+    this.text = function (type) {
+        if(type=="text")
+            return true;
+        return false;
+    }
+    this.image = function (type) {
+        if (type == "image")
+            return true;
+        return false;
+    }
+    this.file = function (type) {
+        if (type == "file")
+            return true;
+        return false;
+    }
     $on('changeConversation', function (data) {
         console.log('chatform: ', data);
         if (self.curConver.id != chatService.curConver.id) {
@@ -135,6 +104,58 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             get();
         }
     });
+
+    $scope.$watch('chat.dropFiles', function () {
+        console.log('watch ok');
+        if (self.dropFiles !== undefined) {
+            if (self.dropFiles[0].type.indexOf("image/") !== -1) {
+                self.sendImage(self.dropFiles);
+            } else {
+                self.sendFile(self.dropFiles);
+            }
+            console.log(self.listMess);
+        }
+    });
+
+    this.sendImage = function (images) {
+        var image = images[0];
+        console.log('image', image.type);
+        var formData = new FormData();
+        formData.append('file', image);
+
+        uploadService.uploadImage(formData)
+            .then((rs) => {
+                var message = {
+                    message: rs.data.content,
+                    message_type: "image",
+                    sender_id: self.curUser.id
+                };
+                self.listMess.push(message);
+                chatService.sendMessage(self.curConver.id, message);
+            }).catch((err) => {
+                console.log("upload image fail", err);
+            })
+    }
+
+    this.sendFile = function (files) {
+        var file = files[0];
+        console.log('file', file);
+        var formData = new FormData();
+        formData.append('file', file);
+
+        uploadService.uploadFile(formData)
+            .then((rs) => {
+                var message = {
+                    message: rs.data.content,
+                    message_type: "file",
+                    sender_id: self.curUser.id
+                };
+                self.listMess.push(message);
+                chatService.sendMessage(self.curConver.id, message)
+            }).catch((err) => {
+                console.log("upload file fail", err);
+            })
+    }
 
     $('textarea').keypress(function (e) {
         if (e.which == 13 && !e.shiftKey) {
