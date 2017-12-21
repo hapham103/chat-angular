@@ -41,7 +41,13 @@
         <span>Thông báo</span>
     </div>
 </div> -->
-<div id="participants">
+<div id="infor" ng-if="!details.isGroup()" style="padding: 10px">
+    <ul>
+        <li>Fullname: {{details.chat.fullname}}</li>
+        <li>Email: {{details.chat.email}}</li>
+    </ul>
+</div>
+<div id="participants" ng-if="details.isGroup()">
     <div>
         <button style="border: none; background: none" ng-click="details.showModal()">
             <i class="fa fa-plus" aria-hidden="true"></i>

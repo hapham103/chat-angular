@@ -61,5 +61,25 @@ function Controller(chatService, $emit, $on, $timeout) {
         
 
     };
+    socket.on('receiveMessage', function (data) {
+        console.log('list conver receive: ', data);
+        if(data.sender.id!=chatService.curUser.id){
+        for(let i=0;i<self.conversations.length;i++){
+            if(self.conversations[i].id==data.room.id){
+                // let con = self.conversations.splice(i,1);
+                // self.conversations.unshift(con);
+                // self.conversations[i].Messages.push({
+                //     message_type: "text",
+                //     message: data.content,
+                //     sender_id: data.sender.id,
+                //     conversation_id: data.room.id,
+                //     User: data.sender
+                // })
+                self.lastMess(0);
+                break;
+            }
+        }
+        }
+    });
     // console.log('list con: ', socket.id);
 }

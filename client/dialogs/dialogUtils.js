@@ -141,84 +141,90 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
     }
     myDialogs.addParticipant = function () {
         function ModalController(close) {
-
+            console.log('modal add participant');
             var self = this;
-
+            self.currentUser = chatService.curUser;
             chatService.getUserList()
                 .then(users => {
                     self.users = users.data;
                     console.log('modal users', users.data);
+                    self.users = self.users.filter(user => { user.id != self.currentUser.id });
+                    // chatService.curConver.Users.forEach(function (u) {
+                    //     console.log(u.id);
+                    //     self.users = self.users.filter(user => {user.id != u.id });
+                    // })
+                    console.log('users of add par: ', self.users);
                 })
+            
+        //     self.numberOfReceiver = 0;
+        //     self.receivers = [];
+        //     self.conversationInfo = {
+        //         name: self.conversationName,
+        //         receivers: self.receivers
+        //     };
 
-            self.numberOfReceiver = 0;
-            self.receivers = [];
-            self.conversationInfo = {
-                name: self.conversationName,
-                receivers: self.receivers
-            };
+        //     self.isChecked = function (user) {
+        //         if (self.receivers.indexOf(user) === -1)
+        //             return false;
+        //         else return true;
+        //     }
 
-            self.isChecked = function (user) {
-                if (self.receivers.indexOf(user) === -1)
-                    return false;
-                else return true;
-            }
+        //     self.addReceiver = function (user) {
+        //         if (!self.isChecked(user)) {
+        //             self.receivers.push(user);
+        //             self.conversationMember = "";
+        //             self.numberOfReceiver++;
+        //         } else {
+        //             self.deleteReceiver(user);
+        //         }
+        //     };
 
-            self.addReceiver = function (user) {
-                if (!self.isChecked(user)) {
-                    self.receivers.push(user);
-                    self.conversationMember = "";
-                    self.numberOfReceiver++;
-                } else {
-                    self.deleteReceiver(user);
-                }
-            };
+        //     self.deleteReceiver = function (receiver) {
+        //         self.numberOfReceiver--;
+        //         var i = self.receivers.indexOf(receiver);
+        //         if (i !== -1) {
+        //             self.receivers.splice(i, 1);
+        //         }
+        //     };
 
-            self.deleteReceiver = function (receiver) {
-                self.numberOfReceiver--;
-                var i = self.receivers.indexOf(receiver);
-                if (i !== -1) {
-                    self.receivers.splice(i, 1);
-                }
-            };
+        //     authentication.getCurrentUser()
+        //         .then(user => {
+        //             self.currentUser = user.data;
+        //             console.log('user.data', user.data)
+        //         }).catch(err => {
+        //             console.log('err', err);
+        //         })
 
-            authentication.getCurrentUser()
-                .then(user => {
-                    self.currentUser = user.data;
-                    console.log('user.data', user.data)
-                }).catch(err => {
-                    console.log('err', err);
-                })
-
-            self.onSubmit = function () {
-                self.formError = "";
-                if (!self.receivers) {
-                    console.log('try again');
-                    return false;
-                } else {
-                    let members = [];
-                    members.push(self.currentUser.id)
-                    let conversationName = self.currentUser.username;
-                    for (r of self.receivers) {
-                        members.push(r.id);
-                        conversationName = conversationName + ", " + r.username;
-                    }
-                    let conversationInfo = {
-                        title: conversationName,
-                        members: members,
-                        avatar: "x"
-                    }
-                    doSubmit(conversationInfo);
-                }
-            };
-            var doSubmit = function (info) {
-                chatService.createConversation(info)
-                    .then(function (con) {
-                        console.log('con', con);
-                    }).catch(err => {
-                        console.log('createConversation err', err);
-                    })
-                self.cancel();
-            }
+        //     self.onSubmit = function () {
+        //         self.formError = "";
+        //         if (!self.receivers) {
+        //             console.log('try again');
+        //             return false;
+        //         } else {
+        //             let members = [];
+        //             members.push(self.currentUser.id)
+        //             let conversationName = self.currentUser.username;
+        //             for (r of self.receivers) {
+        //                 members.push(r.id);
+        //                 conversationName = conversationName + ", " + r.username;
+        //             }
+        //             let conversationInfo = {
+        //                 title: conversationName,
+        //                 members: members,
+        //                 avatar: "x"
+        //             }
+        //             doSubmit(conversationInfo);
+        //         }
+        //     };
+        //     var doSubmit = function (info) {
+        //         chatService.createConversation(info)
+        //             .then(function (con) {
+        //                 console.log('con', con);
+        //             }).catch(err => {
+        //                 console.log('createConversation err', err);
+        //             })
+        //         self.cancel();
+        //     }
             self.cancel = function () {
                 close(null);
             }

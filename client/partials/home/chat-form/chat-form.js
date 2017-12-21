@@ -175,7 +175,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
 
     $('textarea').keypress(function (e) {
         if (e.which == 13 && !e.shiftKey) {
-            var content = $('textarea').val().replace("\n", "<br>");
+            var content = $('textarea').val().replace("\n", "</br>");
+            // var content = $('textarea').val();
             var message = {
                 message: content,
                 message_type: 'text',

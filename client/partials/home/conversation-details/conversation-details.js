@@ -14,6 +14,12 @@ function Controller(chatService, $on, DialogService) {
         self.title = self.curConver.title;
         self.avatarUrl = self.curConver.avatar;
         self.participants = self.curConver.Users;
+        self.isGroup = function(){
+            if(self.curConver.Users.length>1)
+                return true;
+            else return false;
+        }
+        self.chat = self.curConver.Users[0];
     }
     get();
     $('#details').height($('body').height() - 50);
