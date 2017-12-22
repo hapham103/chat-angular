@@ -83,11 +83,11 @@ function chat ($http, $window, authentication) {
             if( listUser[i].id == id )
                 return listUser[i];
     }
-    var getPosConver = function(id) {
-        for (let i = 0; i < listConver.length; i++)
-            if (listConver[i].id == id)
-                return i;
-    }
+    // var getPosConver = function(id) {
+    //     for (let i = 0; i < listConver.length; i++)
+    //         if (listConver[i].id == id)
+    //             return i;
+    // }
    
     return {
         listUser: listUser,
@@ -97,7 +97,7 @@ function chat ($http, $window, authentication) {
         listMess: listMess,
         getUser: getUser,
         getUserList: getUserList,
-        getPosConver: getPosConver,
+        // getPosConver: getPosConver,
         createConversation: createConversation,
         getConversation: getConversation,
         getConversationList: getConversationList,
