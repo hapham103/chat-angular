@@ -3,7 +3,7 @@ function chat ($http, $window, authentication) {
     // var token = authentication.getToken();
     // var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-
+    var defaultImage = "avatar/default_group.jpg";
     var getUserList = function() {
         return $http.get('/api/users', {
             headers: { 'Authorization': authentication.getToken()}
@@ -39,19 +39,28 @@ function chat ($http, $window, authentication) {
     }
 
     var createConversation = function(conversation) {
+        conversation.avatar = defaultImage;
         return $http.post('/api/conversations/new', conversation, {
             headers: {
                 'Authorization': authentication.getToken()
             }
         });
     }
-    // var updateConversation = function(conversationid, newinfo) {
-    //     return $http.put('/api/conversation/' + conversationid, newinfo, {
-    //         headers: {
-    //             'Authoriation': token
-    //         }
-    //     });
-    // }
+    var updateConversation = function(conversationid, newinfo) {
+        return $http.put('/api/conversations/' + conversationid, newinfo, {
+            headers: {
+                'Authorization': authentication.getToken()
+            }
+        });
+    }
+    var editUser = function (userid, newuser) {
+        console.log('editUser called');
+        return $http.put('/api/users/'+ userid, newuser, {
+            headers: {
+                "Authorization": authentication.getToken()
+            }
+        })
+    }
     var addUserToConversation = function(conversationid, newuser){
         return $http.put('/api/conversations/' + conversationid + '/add', newuser, {
             headers: {
@@ -102,7 +111,8 @@ function chat ($http, $window, authentication) {
         getConversation: getConversation,
         getConversationList: getConversationList,
         getMessages: getMessages,
-        // updateConversation: updateConversation,
+        updateConversation: updateConversation,
+        editUser: editUser,
         addUserToConversation: addUserToConversation,
         sendMessage: sendMessage,
         refresh: refresh

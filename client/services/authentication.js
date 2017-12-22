@@ -1,5 +1,7 @@
 angular.module('chat-app').service('authentication', authentication);
 function authentication ($window, $http) {
+
+    var defaultAvatar = "avatar/default_user.png";
     var saveToken = function(token) {
         $window.localStorage['chatapp-token'] = token;
     }
@@ -7,14 +9,13 @@ function authentication ($window, $http) {
         return $window.localStorage['chatapp-token'];
     }
     var login = function(user) {
-        console.log('login call');
         return $http.post('/action/login', user)
                     .then(function (userdata){
                             saveToken(userdata.data);
                     })
     }
     var register = function(user) {
-        console.log('register call');
+        user.avatar = defaultAvatar;
         return $http.post('/action/register', user)
                     .then(function(user){
                         saveToken(user.data);

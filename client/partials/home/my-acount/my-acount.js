@@ -19,4 +19,8 @@ function Controller(authentication, chatService, $location, DialogService) {
         console.log('show modal');
         DialogService.newConversation();
     }
+    self.editUser = function() {
+        console.log('editUser');
+        DialogService.editUser();
+    }
 }

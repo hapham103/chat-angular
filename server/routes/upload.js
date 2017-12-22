@@ -9,7 +9,7 @@ router.post('/file', function(req, res){
 router.post('/image', function(req,res){
     ctrlUpload.postImage(req,res);
 })
-router.post('/avatar/:userid', function(req, res) {
+router.post('/avatar', function(req, res) {
     ctrlUpload.postAvatar(req, res);
 })
 module.exports = router;

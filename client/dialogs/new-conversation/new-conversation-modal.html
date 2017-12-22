@@ -35,34 +35,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- <label for="receiver" class="col-sm-2 control-label">To:</label>
-                        <div class="col-sm-10">
-                            <ul ng-show="Modal.receivers" class="receiver">
-                                <li class="receiver" ng-repeat="receiver in Modal.receivers">
-                                    {{receiver.username}} t
-                                    <span class="close" ng-click="Modal.deleteReceiver(receiver)">x</span>
-                                </li>
-                            </ul>
-                            <input id="receiver" name="receiver" class="form-control"
-                                ng-model="Modal.conversationMember">
-                            <div class="contact" ng-show="Modal.conversationMember">
-                                <p>Contact</p>
-                                <ul class="friendList">
-                                    <li ng-repeat="user in Modal.users | filter: {username: Modal.conversationMember}"
-                                        ng-if="Modal.receivers.indexOf(user)===-1"
-                                        ng-click="Modal.addReceiver(user)">
-                                        <img class="small-round" ng-src="{{user.avatar}}">
-                                        <p class="user-name"> {{user.username}}</p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button ng-click="Modal.cancel()" type="button" class="btn btn-default">Cancel</button>
-                <button ng-click="Modal.onSubmit()" class="btn btn-primary">Create</button>
+                <button ng-click="Modal.onSubmit()" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
