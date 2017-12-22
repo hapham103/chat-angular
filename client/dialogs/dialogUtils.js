@@ -201,7 +201,16 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                 chatService.addUserToConversation(conversationid, user)
                     .then(function (con) {
                         console.log('add user success');
-                        socket.emit('addUser');
+                        let newTitle = chatService.curConver.title;
+                        self.receivers.forEach(function(rec){
+                            newTitle += (' ,' + rec.username );
+                        })
+                        chatService.updateConversation(conversationid, {title: newTitle})
+                            .then(function (c) {
+                                console.log('update title success: ', c);
+                            })
+                            .catch(err=>{console.log('update title fail', err);});
+                        socket.emit('addUser', );
                     }).catch(err => {
                         console.log('add user err', err);
                     })
