@@ -15,7 +15,9 @@ router.get('/users/:userid', function(req, res) {
 router.get('/userlist/:email', function(req, res) {
 	ctrlUser.getUserByEmail(req,res);
 })
-
+router.put('/users/:userid', function(req, res){
+	ctrlUser.editUser(req, res);
+})
 //chat
 router.get('/conversations/:conversationid/messages', function (req,res) {
 	ctrlMessage.getMessage(req,res);
@@ -28,9 +30,9 @@ router.post('/conversations/:conversationid/messages/new', function(req,res) {
 router.post('/conversations/new', function(req,res) {
 	ctrlConversation.createConversation(req,res);
 });
-// router.put('/conversations/:conversationid', function(req,res) {
-// 	ctrlConversation.updateConversation(req,res);
-// });
+router.put('/conversations/:conversationid', function(req,res) {
+	ctrlConversation.updateConversation(req,res);
+});
 router.get('/conversations/:conversationid', function(req, res){
 	ctrlConversation.getConversation(req, res);
 });

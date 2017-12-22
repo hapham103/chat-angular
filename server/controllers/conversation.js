@@ -45,17 +45,20 @@ module.exports.createConversation = function (req,res) {
 		res.send(data);
 	}).catch(err=>{});
 }
-// module.exports.updateConversation = function(req,res) {
-// 	Conversation.update({
-// 		title: req.body.title
-// 	},{
-// 		where : {
-// 			id : req.params.conversationid
-// 		}
-// 	}).then(data=>{
-// 		res.send(data);
-// 	})
-// }
+module.exports.updateConversation = function(req,res) {
+	Conversation.findById(req.params.conversationid)
+	.then(conversation=>{
+		if(conversation) {
+			conversation.update({
+				title: req.body.title,
+				avatar: req.body.avatar
+			})
+			.then(conversation => {
+				res.send(conversation);
+			})
+		}
+	})
+}
 module.exports.addUserToConversation = function(req,res) {
 	Conversation.findById(req.params.conversationid)
 		.then(function(conversation) {

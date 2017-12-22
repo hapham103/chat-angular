@@ -1,10 +1,11 @@
 angular.module('chat-app').service('uploadService', upload);
-function upload ($http) {
+function upload ($http, authentication) {
     var uploadFile = function(file) {
         return $http.post('/upload/file', file,  {
             headers: {
                 'Accept': '*/*',
-                'Content-Type': undefined
+                'Content-Type': undefined,
+                "Authorization": authentication.getToken()
             }
         });
     }
@@ -12,7 +13,8 @@ function upload ($http) {
         return $http.post('/upload/image', image, {
             headers: {
                 'Accept': '*/*',
-                'Content-Type': undefined
+                'Content-Type': undefined,
+                "Authorization": authentication.getToken()
             }
         });
     }
@@ -20,7 +22,8 @@ function upload ($http) {
         return $http.post('/upload/avatar', avatar, {
             headers: {
                 'Accept': '*/*',
-                'Content-Type': undefined
+                'Content-Type': undefined,
+                "Authorization": authentication.getToken()
             }
         });
     }

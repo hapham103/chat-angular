@@ -1,6 +1,6 @@
 angular.module('chat-app').service('DialogService', DialogUtils);
 
-function DialogUtils(ModalService, chatService, authentication, $emit) {
+function DialogUtils(ModalService, chatService, $timeout, authentication, $emit, uploadService) {
     let myDialogs = new Object();
     myDialogs.newConversation = function () {
         function ModalController(close) {
@@ -189,6 +189,74 @@ function DialogUtils(ModalService, chatService, authentication, $emit) {
 
         ModalService.showModal({
             templateUrl: 'dialogs/add-participant/add-participant-modal.html',
+            controller: ModalController,
+            controllerAs: 'Modal'
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (data) {
+                $('.modal-backdrop').last().remove();
+                $('body').removeClass('modal-open');
+                if (data) console.log("imported", data);
+            });
+        });
+    }
+    myDialogs.editUser = function () {
+
+        function ModalController (close) {
+            let self = this;
+            this.curUser = chatService.curUser;
+            self.newUser = {};
+            self.newUser.username = this.curUser.username;
+            self.newUser.fullname = this.curUser.fullname;
+            self.newUser.email = this.curUser.email;
+            self.newUser.avatar = this.curUser.avatar;
+            self.newPassword ="";
+            self.newConfirm = "";
+
+            this.cancel = function () {
+                close(null);
+            }
+
+            this.onSubmit = function () {
+               if (self.newPassword !== self.newConfirm) {
+                    alert("Password is not match");
+                } else {
+                    if(self.newPassword){
+                        self.newUser.password = self.newPassword;
+                    }
+                    if(this.avatar) {
+                        var formData = new FormData();
+                        formData.append('file', self.avatar);
+                        uploadService.uploadAvatar(formData)
+                            .then((rs)=>{
+                                self.newUser.avatar = rs.data.content;
+                                console.log('new user', self.newUser);
+                                chatService.editUser(this.curUser.id, self.newUser)
+                                .then(user => {
+                                    //lap socket io vao day
+                                    close(null);
+                                }).catch(err=>{
+                                    console.log('edit user fail',err);
+                                })
+                            }).catch((err)=> {
+                                console.log("upload avatar fail", err);
+                            })
+                    } else {
+                        console.log('newUser', self.newUser);
+                        chatService.editUser(this.curUser.id, self.newUser)
+                            .then(user => {
+                                //lap socket io vao day
+                                close(null);
+                            }).catch(err=>{
+                                console.log('edit user fail',err);
+                            })
+                    }
+                }
+            }
+        }
+
+        ModalService.showModal({
+            templateUrl: 'dialogs/edit-user/edit-user-modal.html',
             controller: ModalController,
             controllerAs: 'Modal'
         }).then(function (modal) {

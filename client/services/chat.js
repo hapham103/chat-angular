@@ -45,13 +45,21 @@ function chat ($http, $window, authentication) {
             }
         });
     }
-    // var updateConversation = function(conversationid, newinfo) {
-    //     return $http.put('/api/conversation/' + conversationid, newinfo, {
-    //         headers: {
-    //             'Authoriation': token
-    //         }
-    //     });
-    // }
+    var updateConversation = function(conversationid, newinfo) {
+        return $http.put('/api/conversations/' + conversationid, newinfo, {
+            headers: {
+                'Authorization': authentication.getToken()
+            }
+        });
+    }
+    var editUser = function (userid, newuser) {
+        console.log('editUser called');
+        return $http.put('/api/users/'+ userid, newuser, {
+            headers: {
+                "Authorization": authentication.getToken()
+            }
+        })
+    }
     var addUserToConversation = function(conversationid, newuser){
         return $http.put('/api/conversations/' + conversationid + '/add', newuser, {
             headers: {
@@ -102,7 +110,8 @@ function chat ($http, $window, authentication) {
         getConversation: getConversation,
         getConversationList: getConversationList,
         getMessages: getMessages,
-        // updateConversation: updateConversation,
+        updateConversation: updateConversation,
+        editUser: editUser,
         addUserToConversation: addUserToConversation,
         sendMessage: sendMessage,
         refresh: refresh
