@@ -49,13 +49,23 @@ module.exports.updateConversation = function(req,res) {
 	Conversation.findById(req.params.conversationid)
 	.then(conversation=>{
 		if(conversation) {
-			conversation.update({
-				title: req.body.title,
-				avatar: req.body.avatar
-			})
-			.then(conversation => {
-				res.send(conversation);
-			})
+			if(req.body.avatar) {
+				conversation.update({
+					title: req.body.title,
+					avatar: req.body.avatar
+				})
+				.then(conversation => {
+					res.send(conversation);
+				})
+			} else {
+				conversation.update({
+					title: req.body.title
+				})
+				.then(conversation => {
+					res.send(conversation);
+				})
+			}
+			
 		}
 	})
 }
