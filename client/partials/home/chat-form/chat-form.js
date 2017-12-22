@@ -29,6 +29,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 scr.scrollTop(scr[0].scrollHeight);
             });
             $('#list-message').height($('#chat-form').height() - $('#chat').height());
+            $('#chat-form').height($('body').height() - 50);
+            $('#list-message').height($('#chat-form').height() - $('#chat').height());
             $(window).resize(function () {
                 $('#chat-form').height($('body').height() - 50);
                 $('#list-message').height($('#chat-form').height() - $('#chat').height());
@@ -193,7 +195,9 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             $('textarea').val(''); 
         }
     });
-    
+    socket.on('addUserToConver', function(data){
+        socket.emit('joinRoom', data);
+    })
     socket.on('receiveMessage', function (data) {
         console.log('client reciveMessage');
         if(self.curConver.id == data.room.id) {

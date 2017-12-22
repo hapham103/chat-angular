@@ -11,8 +11,13 @@ function Controller(chatService, $emit, $on, $timeout) {
     self.conversations = chatService.listConver;
     socket.on('addListConver', function (data) {
         console.log('add conversation');
-        chatService.listConver.push(data);
-        self.conversations = chatService.listConver;
+        for (let i =0; i< data.receivers.length; i++)
+            if(data.receivers[i].id == chatService.curUser.id){
+                chatService.listConver.unshift(data.conver);
+                self.conversations = chatService.listConver;
+                break;
+            }
+        
     });
     var g = function () {
         self.conversations = chatService.listConver;
@@ -81,5 +86,23 @@ function Controller(chatService, $emit, $on, $timeout) {
         }
         }
     });
+    socket.on('addUserToConver', function(data){
+        let isUser = true;
+        for(let i =0; i<data.users.length; i++)
+            if(data.users[i].id == chatService.curUser.id)
+            {
+                isUser = false;
+                break;
+            }
+            if(isUser)
+                for (let i = 0; i < self.conversations.length; i++) {
+                    if(self.conversations[i].id == data.conver.id){
+                        self.conversations[i].title = data.conver.title;
+                    }
+                }
+            else{
+                self.conversations.push(data.conver);
+            }
+    })
     // console.log('list con: ', socket.id);
 }

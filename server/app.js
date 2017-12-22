@@ -55,10 +55,12 @@ io.on('connection', function (socket) {
 			data.conver.title = data.sender.username;
 			data.conver.avatar = data.sender.avatar;
 		}
-		
-
-		socket.broadcast.emit('addListConver', data.conver);
-
-		// socket.join(data.id);
+		socket.broadcast.emit('addListConver', data);
+	});
+	socket.on('addUser', function (data) {
+		io.sockets.emit('addUserToConver', data);
+	});
+	socket.on('joinRoom', function(data){
+		socket.join(data.conver.id);
 	})
 });
