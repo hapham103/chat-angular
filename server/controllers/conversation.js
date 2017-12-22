@@ -54,7 +54,7 @@ module.exports.updateConversation = function(req,res) {
 					title: req.body.title,
 					avatar: req.body.avatar
 				})
-				.then(conversation => 
+				.then(conversation => {
 					res.send(conversation);
 				})
 			} else {
