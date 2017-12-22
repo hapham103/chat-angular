@@ -38,13 +38,12 @@ function loginCtrl( $location, $emit, $on, $timeout, authentication, chatService
                             chatService.listConver.forEach(function (conver) {
                                 if (conver.Users.length == 2) {
                                     if(chatService.curUser.id != conver.Users[0].id){
-                                        conver.title = conver.Users[0].username;
-                                        conver.avatar = conver.Users[0].avatar;
+                                        conver.Users.splice(1,1);
                                     }else{
-                                        conver.title = conver.Users[1].username;
-                                        conver.avatar = conver.Users[1].avatar;
+                                        conver.Users.splice(0, 1);
                                     }
-                                    
+                                    conver.title = conver.Users[0].username;
+                                    conver.avatar = conver.Users[0].avatar;
                                 }
                             });
                         }

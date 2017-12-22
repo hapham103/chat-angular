@@ -13,7 +13,15 @@
             ng-show="chat.showAvatar(mess.sender_id, $index)">
         <div ng-if="chat.notShowAvatar(mess.sender_id, $index)" class="empty" ></div>
         
-        <span class="mess">{{mess.message}}</span>
+        <span class="mess" ng-if="chat.text(mess.message_type)">{{mess.message}}</span>
+        <span ng-if="chat.image(mess.message_type)">
+            <a href="{{mess.message}}" download>
+                <img src="{{mess.message}}" width="60%" height="50%">
+            </a>
+        </span>
+        <span class="mess" ng-if="chat.file(mess.message_type)">
+            <a href="{{mess.message}}" download>{{mess.message}}</a>
+        </span>
         <!-- <span class="time">{{mess.createdAt}}</span> -->
        
     </div>
