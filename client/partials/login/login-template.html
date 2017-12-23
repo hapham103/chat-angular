@@ -1,6 +1,16 @@
-Login page
-<a ui-sref='register'>register</a>
-<div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger">{{ loginCtrl.formError }}</div>
-<input type="" name="" value="" id="email" ng-model="loginCtrl.user.email">
-<input type="password" name="" value="" id="pwd" ng-model="loginCtrl.user.password">
-<button type="submit" ng-click="loginCtrl.login()">Login</button>  
+<div class="loginForm" style="background: url(../vendor/img/mountains4.png) no-repeat;height: 100%;
+    width: 100%;">
+    <div class="logos">
+        <div>Chat<b ui-sref='register'><span>Pro</span></b></div>
+    </div>
+    <br>
+    <div class="login">
+        <div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger" style="width: 260px;">{{ loginCtrl.formError }}</div>
+        <input type="email" placeholder="Email" id="email" ng-model="loginCtrl.user.email"><br>
+        <input type="password" placeholder="Password" id="pwd" ng-model="loginCtrl.user.password"><br>
+        <div class="buttons" style="margin-top:10px;">
+            <button type="button" name="button" class="btn btn-default btns" ng-click="loginCtrl.login()">Login</button>
+            <button type="button" name="button" class="btn btn-default btn-df" ui-sref='register'>Signup</button>
+        </div>
+    </div>
+</div>
