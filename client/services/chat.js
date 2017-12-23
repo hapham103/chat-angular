@@ -3,7 +3,7 @@ function chat ($http, $window, authentication) {
     // var token = authentication.getToken();
     // var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-    var defaultImage = "avatar/default_group.jpg";
+    var defaultImage = "avatar/default2.png";
     var getUserList = function() {
         return $http.get('/api/users', {
             headers: { 'Authorization': authentication.getToken()}
@@ -17,7 +17,7 @@ function chat ($http, $window, authentication) {
             headers: {'Authorization': token}
         });
     }
-    
+
     var getConversation = function(conversationid){
         return $http.get('/api/conversations/'+ conversationid, {
             headers: { 'Authorization': authentication.getToken()}
@@ -29,7 +29,7 @@ function chat ($http, $window, authentication) {
             headers: { 'Authorization': authentication.getToken()}
         })
     }
-    
+
     var sendMessage = function (conversationid, message){
         return $http.post('/api/conversations/'+conversationid + '/messages/new', message, {
             headers: {
@@ -84,9 +84,9 @@ function chat ($http, $window, authentication) {
             console.log('listUser:', listUser);
         })
     }
-    
+
     refresh();
-    
+
     var getUser = function (id) {
         for( let i=0; i<listUser.length; i++ )
             if( listUser[i].id == id )
@@ -97,7 +97,7 @@ function chat ($http, $window, authentication) {
     //         if (listConver[i].id == id)
     //             return i;
     // }
-   
+
     return {
         listUser: listUser,
         curUser: curUser,
