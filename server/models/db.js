@@ -3,7 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
-var sequelize = new Sequelize("chat_angular", "root", "", {
+var sequelize = new Sequelize("chat_angular", "root", "199783", {
     dialect: 'mysql'
 });
 var Op = Sequelize.Op;
@@ -49,9 +49,9 @@ db.User.hasMany(db.Message, {
         allowNull: false
     }
 })
-db.Message.belongsTo(db.User, { 
-    foreignKey: 'sender_id', 
-    targetKey: 'id' 
+db.Message.belongsTo(db.User, {
+    foreignKey: 'sender_id',
+    targetKey: 'id'
 });
 
 var models = sequelize.models;

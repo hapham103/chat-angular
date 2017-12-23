@@ -1,11 +1,19 @@
-register page
-<div role="alert" ng-show="registerCtrl.formError" class="alert alert-danger">{{ registerCtrl.formError }}</div>
-email: <input type="" name="" value="" id="email" ng-model="registerCtrl.user.email">
-fullname: <input type="" name="" value="" id="name" ng-model="registerCtrl.user.fullname">
-username: <input type="" name="" value="" id="uname" ng-model="registerCtrl.user.username">
-avatar: <input type="" name="" value="" id="avt" ng-model="registerCtrl.user.avt">
-password:<input type="password" name="" value="" id="pwd" ng-model="registerCtrl.user.password">
-retype password:<input type="password" name="" value="" id="rpwd" ng-model="registerCtrl.user.repassword">
-<div class="button" ngf-select ng-model="files" ngf-multiple="true" ngf-model-invalid="errorFile">Select</div>
-<!-- <input id="file-upload" type="file" name="upload" multiple  ng-model="registerCtrl.myfile"> -->
-<button type="submit" ng-click="registerCtrl.register(files[0])">register</button>
+<div class="loginForm" style="background: url(../vendor/img/mountains3.png) no-repeat;height: 100%;
+    width: 100%;">
+    <div class="logos">
+        <div>Chat<span>Pro</span></div>
+    </div>
+    <br>
+    <div class="login" style=" top: calc(30% - 75px);">
+        <div role="alert" ng-show="registerCtrl.formError" class="alert alert-danger" style="width: 260px;">{{ registerCtrl.formError }}</div>
+        <input id="uname" ng-model="registerCtrl.user.username" type="text" class="validate" placeholder="Username">
+        <input id="name" ng-model="registerCtrl.user.fullname" type="text" class="validate" placeholder="Full Name">
+        <input id="email" ng-model="registerCtrl.user.email" type="email" class="validate" placeholder="Email">
+        <input id="pwd" ng-model="registerCtrl.user.password" type="password" class="validate" placeholder="Password">
+        <input id="rpwd" ng-model="registerCtrl.user.repassword" type="password" class="validate" placeholder="Retype Password">
+        <div class="buttons" style="margin-top:10px;">
+            <button type="button" name="button" class="btn btn-default btns" ng-click="registerCtrl.register(files[0])">Signup</button>
+            <button type="button" name="button" class="btn btn-default btn-df" ui-sref='login' style="margin-left:5%">Login</button>
+        </div>
+    </div>
+</div>
