@@ -22,6 +22,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     this.curConver = chatService.curConver;
     this.listMess = chatService.listMess;
     this.curUser = chatService.curUser;
+    self.x ="https://www.w3schools.com/tags/tryit.asp?filename=tryhtml5_a_download";
     function get() {
         $(document).ready(function (params) {
             $(function () {

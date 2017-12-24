@@ -34,6 +34,10 @@ function Controller(chatService, $on, DialogService) {
     $on('changeCurCon', function () {
         get();
     });
+    self.editConversation = function () {
+        console.log("edit Conversation");
+        DialogService.editConversation();
+    }
     self.showModal = function () {
         console.log('show modal');
         DialogService.addParticipant();

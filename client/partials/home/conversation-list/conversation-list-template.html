@@ -1,5 +1,5 @@
 <div class="input-group">
-    <input type="text" placeholder="Tìm kiếm trên Chat App" 
+    <input type="text" placeholder="Tìm kiếm" 
             class="search"
             ng-model="filter">
 </div>
@@ -8,15 +8,15 @@
         <li ng-repeat="conversation in conversationList.conversations | filter: {title: filter} track by $index" 
             class="item-conversation">
             <a href="" class="item-link" ng-click="conversationList.onchangeConversation(conversation, $index)">
-                <div style="height: 65px">
-                    <div class="col-sm-3" style="padding-left: 0">
+                <div class="item">
+                    <div class="item-img" style="padding-left: 0">
                         <img ng-src="{{conversation.avatar}}" alt="" style="height: 50px; width: 50px" class="img-circle">
                     </div>
-                    <div class="col-sm-9">
-                        <div class="row">
+                    <div class="item-info">
+                        <div class="conversation-title">
                             {{conversation.title}}
                         </div>
-                        <div style="overflow-x: hidden" ng-if="conversationList.hasMess($index)" class="row">
+                        <div ng-if="conversationList.hasMess($index)" class="conversation-last">
                             {{conversationList.lastMess($index)}}
                         </div>
                     </div>

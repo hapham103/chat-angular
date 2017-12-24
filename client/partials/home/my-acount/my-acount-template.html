@@ -1,19 +1,29 @@
-<img ng-src="{{myAcount.avatarUrl}}" class="img-circle" alt="" id="avatar">
-<span id="username"> {{myAcount.username}} </span>
-<button ng-click="myAcount.showModal()" type="" style="float: right; border: none; background: none">
-    <i class="fa fa-edit" style="font-size:25px; "></i>
-</button>
-<span class="dropdown" style="float: right">
-    <button style="background:none; border: none" class="dropdown-toggle" type="button" data-toggle="dropdown">
-        <i class="fa fa-cog" style="font-size:25px; "></i>
-    </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a ng-click="myAcount.editUser()">Chỉnh sửa thông tin</a>
-        </li>
-        <li class="divider"></li>
-        <li>
-            <a ng-click="myAcount.logout()">Đăng xuất</a>
-        </li>
-    </ul>
-</span>
+<div class="my-acount">
+    <div class="acount-img">
+        <img ng-src="{{myAcount.avatarUrl}}" class="img-circle" alt="" id="avatar">
+    </div>
+    <div class="acount-name">
+        <span id="username"> {{myAcount.username}} </span>
+    </div>
+    <div class="new">
+        <button ng-click="myAcount.showModal()" type="" style="float: right; border: none; background: none">
+            <i class="fa fa-edit" style="font-size:20px; "></i>
+        </button>
+    </div>
+    <div class="setting">
+        <span class="dropdown" style="float: right">
+            <button style="background:none; border: none" class="dropdown-toggle" type="button" data-toggle="dropdown">
+                <i class="fa fa-cog" style="font-size:20px; "></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a ng-click="myAcount.editUser()">Chỉnh sửa thông tin</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a ng-click="myAcount.logout()">Đăng xuất</a>
+                </li>
+            </ul>
+        </span>
+    </div>
+</div>
