@@ -89,7 +89,18 @@ a.item-link:focus>div, a.item-link:hover>div{
  #list-message, #chat {
     padding: 0 10px;
  }
-
+  
+ #list-message span {
+     word-break: break-all;
+     display: inline-block;
+     max-width: 70%;
+ }
+ 
+ #list-message .x {
+     width: 100%;
+     display: block;
+     float: right;
+ }
  #chat {
     height: 60px; 
     padding: 0; 
@@ -116,9 +127,15 @@ a.item-link:focus>div, a.item-link:hover>div{
     border-radius: 15px;
 }
 .cur .mess {
-    background: #0084ff;
-    color: #fff";
+    background-color: #0084ff;
+    color: white;
+    float: right;
 }
+.cur>.mess>a {
+    color: white;
+    text-decoration: none;
+}
+
 .chat .mess {
     margin-left: 5px;
     background: #f1f0f0;
