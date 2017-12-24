@@ -24,7 +24,7 @@ function Controller(chatService, $on, DialogService) {
     get();
     $('#details').height($('body').height() - 50);
 
-    
+
     $on('changeConversation', function () {
         get();
     });

@@ -11,11 +11,11 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
         fullname: "",
         repassword:""
     }
-    
+
     self.register = function (file) {
         console.log(file);
 
-        if(!self.user.email ||!self.user.username|| !self.user.password || !self.user.repassword || !self.user.fullname || !self.user.avt) {
+        if(!self.user.email ||!self.user.username|| !self.user.password || !self.user.repassword || !self.user.fullname) {
             self.formError = "All fields required, please try again!";
         }else if(self.user.password !== self.user.repassword){
             self.formError = "password not match!";
@@ -25,7 +25,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
     } ;
 
     self.doRegister = function (file) {
-              
+
         var formData = new FormData();
         formData.append('file', file);
 
@@ -36,7 +36,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
             }).catch((err)=> {
                 console.log("upload file fail", err);
             })
-      
+
         var newUser = {
             email: self.user.email,
             password: self.user.password,
@@ -44,7 +44,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
             fullname: self.user.fullname,
             username: self.user.username
         }
-                
+
         authentication.register(newUser)
             .then(function (user){
                 console.log("success");
