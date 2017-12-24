@@ -1,4 +1,4 @@
-<div id="conversation-info">
+<div id="conversation-info" ng-show="details.has()">
         <img id ="avatar-con" style="height: 50px; width: 50px" class="img-circle" ng-src="{{details.avatarUrl}}">
         <span>{{details.title}}</span>
         <span class="dropdown" style="float: right; padding-top: 12px;">
@@ -20,27 +20,6 @@
             </ul>
         </span>
 </div>
-<!-- <div id="setting">
-    <div class="input-group">
-        <input type="text" placeholder="Tìm kiếm trong cuộc trò chuyện" class="search">
-    </div>
-    <div class="set">
-        <i class="fa fa-edit" style="font-size:24px"></i>
-        <span>Chỉnh sửa biệt hiệu</span>
-    </div>
-    <div class="set">
-        <i class="fa fa-tachometer" style="font-size:24px"></i>
-        <span>Thay đổi màu</span>
-    </div>
-    <div class="set">
-        <i class="fa fa-thumbs-o-up" style="font-size:24px"></i>
-        <span>Thay đổi biểu tượng cảm xúc</span>
-    </div>
-    <div class="set">
-        <i class="fa fa-bell-o" style="font-size:24px"></i>
-        <span>Thông báo</span>
-    </div>
-</div> -->
 <div id="infor" ng-if="!details.isGroup()" style="padding: 10px">
     <ul>
         <li>Fullname: {{details.chat.fullname}}</li>
@@ -65,3 +44,24 @@
         </li>
     </ul>
 </div>
+<!-- <div id="setting">
+    <div class="input-group">
+        <input type="text" placeholder="Tìm kiếm trong cuộc trò chuyện" class="search">
+    </div>
+    <div class="set">
+        <i class="fa fa-edit" style="font-size:24px"></i>
+        <span>Chỉnh sửa biệt hiệu</span>
+    </div>
+    <div class="set">
+        <i class="fa fa-tachometer" style="font-size:24px"></i>
+        <span>Thay đổi màu</span>
+    </div>
+    <div class="set">
+        <i class="fa fa-thumbs-o-up" style="font-size:24px"></i>
+        <span>Thay đổi biểu tượng cảm xúc</span>
+    </div>
+    <div class="set">
+        <i class="fa fa-bell-o" style="font-size:24px"></i>
+        <span>Thông báo</span>
+    </div>
+</div> -->

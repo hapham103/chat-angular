@@ -37,13 +37,13 @@ io.on('connection', function (socket) {
 			socket.join(room.id);
 		});
 	});
-	socket.on('test', function (params) {
-		console.log('test');
-	})
+	// socket.on('test', function (params) {
+	// 	console.log('test');
+	// })
 	socket.on('sendMessage', function(data){
 		
-		console.log(data.content);
-		io.in(data.room.id).emit('receiveMessage', data);
+		// console.log(data.content);
+		io.in(data.conversation.id).emit('receiveMessage', data);
 	});
 	socket.on('joinRoomAdded', function (data) {
 		socket.join(data.id);

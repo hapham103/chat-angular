@@ -9,6 +9,10 @@ angular.module(componentName, ['ngEventEmitter'])
 function Controller(chatService, $on, DialogService, $timeout) {
     let self = this;
     let a=[];
+    this.curConver = {};
+    this.title = "";
+    this.avatarUrl ="";
+    
     function get() {
         self.curConver = chatService.curConver;
         self.title = self.curConver.title;
@@ -18,12 +22,13 @@ function Controller(chatService, $on, DialogService, $timeout) {
         
         self.isGroup = function(){
             if(self.curConver.Users.length>1)
-                return true;
+            return true;
             else return false;
         }
         
         self.chat = self.curConver.Users[0];
-      
+        
+        console.log('test',self.curConver);
     }
     var getPar = function (params) {
         self.participants = a;
@@ -31,6 +36,12 @@ function Controller(chatService, $on, DialogService, $timeout) {
     }
     $timeout(getPar);
     get();
+    console.log('fasdf0: ', self.title);
+    this.has = function () {
+        if (self.curConver != undefined)
+            return true;
+        return false;
+    }
     $('#details').height($('body').height() - 50);
 
     
@@ -49,9 +60,9 @@ function Controller(chatService, $on, DialogService, $timeout) {
         }
 
         self.chat = self.curConver.Users[0];
-        console.log('test',chatService.curConver);
     });
     $on('addConver', function () {
+        console.log("ok");
         get();
     });
     $on('changeCurCon', function () {
