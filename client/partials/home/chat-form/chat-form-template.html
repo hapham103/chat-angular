@@ -19,8 +19,11 @@
                 <img src="{{mess.message}}" width="60%" height="50%">
             </a>
         </span>
-        <span class="mess" ng-if="chat.file(mess.message_type)">
-            <a href="{{mess.message}}" download>{{mess.message}}</a>
+        <span class="mess file-mess" ng-if="chat.file(mess.message_type)">
+            <a href="{{mess.message}}" download>
+                <i class="glyphicon glyphicon-circle-arrow-down"> </i>
+                {{mess.message}}
+            </a>
         </span>
         <!-- <span class="time">{{mess.createdAt}}</span> -->
        
