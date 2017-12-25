@@ -323,9 +323,9 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                     formData.append('file', self.avatar);
                     uploadService.uploadAvatar(formData)
                         .then((rs)=>{
-                            self.newConver.avatar = rs.data.content;
+                            newConver.avatar = rs.data.content;
                             console.log('new user', self.newUser);
-                            chatService.updateConversation(this.curConver.id, self.newConver)
+                            chatService.updateConversation(this.curConver.id, newConver)
                             .then(conver => {
                                 chatService.curConver.title = self.curConver.title;
                                 chatService.curConver.avatar = self.avatar;
@@ -337,8 +337,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                             console.log("upload avatar fail", err);
                         })
                 } else {
-                    console.log('newConver', self.newConver);
-                    chatService.updateConversation(this.curConver.id, self.newConver)
+                    chatService.updateConversation(this.curConver.id, newConver)
                         .then(conver => {
                             chatService.curConver.title = self.curConver.title;
                             close(null);
