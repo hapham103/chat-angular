@@ -1,14 +1,18 @@
-<div id="conversation-info" ng-show="details.has()">
-        <img id ="avatar-con" style="height: 50px; width: 50px" class="img-circle" ng-src="{{details.avatarUrl}}">
-        <span>{{details.title}}</span>
+<div class="conversation-detail">
+    <div class="detail-img">
+        <img id="avatar-con" style="height: 50px; width: 50px" class="img-circle" ng-src="{{details.avatarUrl}}">
+    </div>
+    <div class="detail-title">
+        {{details.title}}
+    </div>
+    <div class="detail-dropdown">
         <span class="dropdown" style="float: right; padding-top: 12px;">
-            <button style="background: none; border: none"
-                    class=" dropdown-toggle" type="button" data-toggle="dropdown">
+            <button style="background: none; border: none" class=" dropdown-toggle" type="button" data-toggle="dropdown">
                 <i class="fa fa-cog" style="font-size: 20px"></i>
             </button>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="">Đổi tên</a>
+                    <a href="" ng-click="details.editConversation()">Chỉnh sửa</a>
                 </li>
                 <li class="divider"></li>
                 <li>
@@ -19,11 +23,18 @@
                 </li>
             </ul>
         </span>
+    </div>
 </div>
 <div id="infor" ng-if="!details.isGroup()" style="padding: 10px">
     <ul>
-        <li>Fullname: {{details.chat.fullname}}</li>
-        <li>Email: {{details.chat.email}}</li>
+        <li>
+            <span class="att">Fullname:</span>
+            <span class="value"> {{details.chat.fullname}}</span>
+        </li>
+        <li>
+                <span class="att">Email:</span>
+                <span class="value">{{details.chat.email}}</span>
+        </li>
     </ul>
 </div>
 <div id="participants" ng-if="details.isGroup()">

@@ -1,0 +1,36 @@
+<div class="modal fade edit" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            ng-click="Modal.cancel()"
+                            aria-hidden="true">&times;
+                    </button>
+                    <h4 class="modal-title"><span class="info-frp-16x16"></span>&nbsp;Edit Conversation Infomation
+                    </h4>
+                </div>
+                <form name="editForm" class="modal-body container-fluid">
+                    <div class="form-group row">
+                        <div class="col-sm-3 control-label">
+                            <img ng-src="{{Modal.curConver.avatar}}"alt="avatar" ng-show="!Modal.avatar">   
+                            <img ngf-src="Modal.avatar" alt="avatar" ng-show="Modal.avatar">                       
+                        </div>
+                        <div class="col-sm-9 input">
+                            <a ngf-select ng-model="Modal.avatar" accept="image/*">Change conversation's picture</a>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="username" class="col-sm-3 control-label">Title</label>
+                        <div class="col-sm-9 input">
+                            <input type="text" class="my-input" name="username"
+                                       ng-model="Modal.newConver.title"/>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button ng-click="Modal.cancel()" type="button" class="btn btn-default">Cancel</button>
+                    <button ng-click="Modal.onSubmit()" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>

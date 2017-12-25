@@ -29,7 +29,11 @@ function Controller(chatService, $emit, $on, $timeout) {
         $('#list').height($('body').height() - 50);
     });
     this.lastMess = function (index) {
-        return self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message;
+        if(self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message_type=="text"){
+            return self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message;            
+        }
+        else
+            return self.conversations[index].Messages[self.conversations[index].Messages.length - 1].message.slice(19);
     };
     this.hasMess = function (index) {
         if (self.conversations[index].Messages != undefined)

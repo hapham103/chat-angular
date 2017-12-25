@@ -306,5 +306,59 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
             });
         });
     }
+    myDialogs.editConversation = function () {
+        function ModalController (close, chatService) {
+
+            let self = this;
+            self.curConver = chatService.curConver;
+            var newConver = {
+                title: self.curConver.title
+            }
+            this.cancel = function () {
+                close(null);
+            }
+            this.onSubmit = function () {
+                if(self.avatar) {
+                    var formData = new FormData();
+                    formData.append('file', self.avatar);
+                    uploadService.uploadAvatar(formData)
+                        .then((rs)=>{
+                            self.newConver.avatar = rs.data.content;
+                            console.log('new user', self.newUser);
+                            chatService.updateConversation(this.curConver.id, self.newConver)
+                            .then(conver => {
+                                //lap socket io vao day
+                                close(null);
+                            }).catch(err=>{
+                                console.log('edit conversation fail',err);
+                            })
+                        }).catch((err)=> {
+                            console.log("upload avatar fail", err);
+                        })
+                } else {
+                    console.log('newConver', self.newConver);
+                    chatService.updateConversation(this.curConver.id, self.newConver)
+                        .then(conver => {
+                            //lap socket io vao day
+                            close(null);
+                        }).catch(err=>{
+                            console.log('edit user fail',err);
+                        })
+                }
+            }
+        }
+        ModalService.showModal({
+            templateUrl: 'dialogs/edit-conversation/edit-conversation-modal.html',
+            controller: ModalController,
+            controllerAs: 'Modal'
+        }).then(function (modal) {
+            modal.element.modal();
+            modal.close.then(function (data) {
+                $('.modal-backdrop').last().remove();
+                $('body').removeClass('modal-open');
+                if (data) console.log("imported", data);
+            });
+        });
+    }
     return myDialogs;
 }

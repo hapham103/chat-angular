@@ -80,6 +80,10 @@ function Controller(chatService, $on, DialogService, $timeout) {
         }
     })
     
+    self.editConversation = function () {
+        console.log("edit Conversation");
+        DialogService.editConversation();
+    }
     self.showModal = function () {
         console.log('show modal');
         DialogService.addParticipant();

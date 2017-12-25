@@ -1,6 +1,6 @@
 <div  id="list-message" class="container-fluid dragarea" style="overflow-y: auto" ngf-drop ng-model="chat.dropFiles" ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true">
     <!-- <img src="image/1513657247136_database.jpg" alt="test"> -->
-    <div class="x" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
+    <div class="messages" ng-repeat="mess in chat.listMess track by $index" ng-class="chat.float(mess.sender_id)">
         <div ng-if="chat.showSenderUsername(mess.sender_id, $index)"
             class="first"
             >
@@ -16,11 +16,14 @@
         <span class="mess" ng-if="chat.text(mess.message_type)">{{mess.message}}</span>
         <span ng-if="chat.image(mess.message_type)">
             <a href="{{mess.message}}" download>
-                <img src="{{mess.message}}" width="30%" height="50%" style="border-radius="15%"">
+                <img src="{{mess.message}}" style="max-width: 100%; max-height: 50%;">
             </a>
         </span>
-        <span class="mess" ng-if="chat.file(mess.message_type)">
-            <a href="{{mess.message}}" download>{{mess.message}}</a>
+        <span class="mess file-mess" ng-if="chat.file(mess.message_type)">
+            <a href="{{mess.message}}" download>
+                <i class="glyphicon glyphicon-circle-arrow-down"> </i>
+                {{mess.message.slice(19)}}
+            </a>
         </span>
         <!-- <span class="time">{{mess.createdAt}}</span> -->
 
@@ -28,7 +31,17 @@
 
 </div>
 <div id="chat" >
-    <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus style="width:50%"></textarea>
-    <i class="glyphicon glyphicon-picture" ngf-select ng-model="chat.images" accept='image/*' ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendImage(chat.images)"></i>
-    <i class="glyphicon glyphicon-file" ngf-select ng-model="chat.files" ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendFile(chat.files)"></i>
+    <div class="text-area col-sm-10">
+        <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>    
+    </div>
+    <div class="icon-area col-sm-1">
+        <button type=" " style="background: none; border: none">
+            <i class="glyphicon glyphicon-picture" ngf-select ng-model="chat.images" accept='image/*' ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendImage(chat.images)"></i>
+        </button>
+    </div> 
+    <div class="icon-area col-sm-1">   
+        <button style="background: none; border: none">
+        <i class="glyphicon glyphicon-paperclip" ngf-select ng-model="chat.files" ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendFile(chat.files)"></i>
+        </button>
+    </div>
 </div>
