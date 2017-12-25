@@ -307,42 +307,45 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
         });
     }
     myDialogs.editConversation = function () {
-        function ModalController (close, chatService) {
+        function ModalController(close, chatService) {
 
             let self = this;
             self.curConver = chatService.curConver;
-            var newConver = {
+            self.newConver = {
                 title: self.curConver.title
             }
             this.cancel = function () {
                 close(null);
             }
             this.onSubmit = function () {
-                if(self.avatar) {
+                if (self.avatar) {
                     var formData = new FormData();
                     formData.append('file', self.avatar);
                     uploadService.uploadAvatar(formData)
-                        .then((rs)=>{
-                            newConver.avatar = rs.data.content;
+                        .then((rs) => {
+                            self.newConver.avatar = rs.data.content;
                             console.log('new user', self.newUser);
-                            chatService.updateConversation(this.curConver.id, newConver)
-                            .then(conver => {
-                                chatService.curConver.title = self.curConver.title;
-                                chatService.curConver.avatar = self.avatar;
-                                close(null);
-                            }).catch(err=>{
-                                console.log('edit conversation fail',err);
+                            chatService.updateConversation(this.curConver.id, self.newConver)
+                                .then(conver => {
+                                    chatService.curConver.title = self.newConver.title;
+                                    chatService.curConver.avatar = self.newConver.avatar;
+                                    console.log('edit success');
+                                    close(null);
+                                }).catch(err => {
+                                    console.log('edit conversation fail', err);
+                                })
+                            }).catch((err) => {
+                                console.log("upload avatar fail", err);
                             })
-                        }).catch((err)=> {
-                            console.log("upload avatar fail", err);
-                        })
-                } else {
-                    chatService.updateConversation(this.curConver.id, newConver)
-                        .then(conver => {
-                            chatService.curConver.title = self.curConver.title;
+                        } else {
+                            chatService.updateConversation(this.curConver.id, self.newConver)
+                            .then(conver => {
+                                chatService.curConver.title = self.newConver.title;
+                            //lap socket io vao day
+                            console.log('edit success');
                             close(null);
-                        }).catch(err=>{
-                            console.log('edit user fail',err);
+                        }).catch(err => {
+                            console.log('edit user fail', err);
                         })
                 }
             }

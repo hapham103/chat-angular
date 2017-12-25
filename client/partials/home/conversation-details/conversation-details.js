@@ -36,7 +36,7 @@ function Controller(chatService, $on, DialogService, $timeout) {
     }
     var getTitle = function(){
         self.title = chatService.curConver.title;
-        console.log('aaa: ', self.title);
+        self.avatarUrl = chatService.curConver.avatar;
         $timeout(getTitle);
     }
     $timeout(getTitle);
