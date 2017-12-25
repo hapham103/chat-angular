@@ -1,6 +1,23 @@
-Login page
-<a ui-sref='register'>register</a>
-<div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger">{{ loginCtrl.formError }}</div>
-<input type="" name="" value="" id="email" ng-model="loginCtrl.user.email">
-<input type="password" name="" value="" id="pwd" ng-model="loginCtrl.user.password">
-<button type="submit" ng-click="loginCtrl.login()">Login</button>
+<div class="container">
+        <div class="row" style="border-bottom: 1px solid #eee">
+            <h1>Sign in to Chat</h1>
+        </div>
+        <div class="row" style="padding-top: 15px">
+            <div class="col-md-6 col-sm-8">
+                <p class="lead">Not a member? Please <a ui-sref="register">register</a> first.</p>
+                <form ng-submit="loginCtrl.login()">
+                    <div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger">{{ loginCtrl.formError }}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="loginCtrl.user.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" ng-model="loginCtrl.user.password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign in!</button>
+                </form>
+            </div>
+        </div>
+    </div>
