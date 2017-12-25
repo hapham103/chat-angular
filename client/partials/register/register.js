@@ -7,7 +7,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
         email: "",
         password: "",
         username: "",
-        avatar: authentication.defaultAvatar,
+        avatar: 'avatar/default_user.png',
         fullname: "",
         repassword:""
     }
@@ -40,7 +40,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
         var newUser = {
             email: self.user.email,
             password: self.user.password,
-            avatar: self.user.avatar,
+            avatar: 'avatar/default_user.png',
             fullname: self.user.fullname,
             username: self.user.username
         }
@@ -51,7 +51,7 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
                 chatService.listMess = [];
                 chatService.listConver = [];
                 chatService.curConver = {};
-                $location.path('/home');
+                $location.path('/');
             }).catch(function(err) {
                 self.formError = "Email existed!";
                 console.log('err', err);

@@ -1,7 +1,7 @@
 angular.module('chat-app').service('authentication', authentication);
 function authentication ($window, $http) {
 
-    var defaultAvatar = "avatar/default_user1.png";
+    var defaultAvatar = "avatar/default_user.png";
     var saveToken = function(token) {
         $window.localStorage['chatapp-token'] = token;
     }

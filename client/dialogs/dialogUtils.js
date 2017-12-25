@@ -147,7 +147,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                     console.log('modal users', users.data);
                     chatService.curConver.Users.forEach(function (u) {
                         self.users = self.users.filter(function (user) {
-                            return user.id != self.currentUser.id && user.id  != u.id;
+                            return user.id != self.currentUser.id && user.id  != u.id && user.id != 1;
                         });
                     })
                 })
@@ -275,7 +275,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                                     chatService.curUser.avatar = self.newUser.avatar;
                                     self.newUser.username = user.data.username;
                                     chatService.curUser.username = self.newUser.username;
-                                    
+
                                     close(null);
                                 }).catch(err=>{
                                     console.log('edit user fail',err);

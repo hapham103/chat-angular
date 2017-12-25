@@ -46,14 +46,17 @@ function loginCtrl($location, $emit, $on, $timeout, authentication, chatService)
                                     conver.avatar = conver.Users[0].avatar;
                                 }
                             });
+                            $location.path('/home');
                         }else{
-                            chatService.curConver = {
-                                title: 'Chat App',
-                                avatar: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/30fe9b7917223.560be8f580f20.png',
-                                
-                            }
+                            chatService.getConversation(1)
+                                .then(conver => {
+                                    chatService.curConver = conver.data;
+                                    chatService.listConver.push(chatService.curConver);
+                                    chatService.listMess = chatService.curConver.Messages;
+                                    $location.path('/home');
+                                })
                         }
-                        $location.path('/home');
+                        
                     })
             }).catch(function (err) {
                 self.formError = "email or password is incorrect!";
