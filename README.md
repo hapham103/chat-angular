@@ -1,35 +1,25 @@
-# chat-angular
+# chat-angular 
 
-npm install 
-
-# NOTE
-1. Khi code
-
-Tên file, folder dạng: chat-app, conversation-list, ... (cách nhau bằng dấu gạch ngang '-')
-
-Tên biến dang: curUser, curConversation, listMessage, ... (quy tắc đặt tên biến của java)
-
-2. Khi commit
-
-(Lúc đầu là git clone ==> k nói)
-
-Viết code của mk vào xong thỳ:
-
-git add .
-
-git commit -m "cmt" ==> để đẩy những cái mk vừa code lên bản trên local
-
-git pull ==> lấy bản mới nhất trên github.com về 
-
-(sau khi git pull có thể xả ra conflict: tìm chỗ conflict: 
+## Group's members: 
+  * Vũ Thị Thúy Thúy  
+  * Nguyễn Thị Nhàn  
+  * Hà Văn Linh  
+  * Nguyễn Đình Công Sơn  
   
-  1. xóa đoạn của mk vừa code đi, 
-  
-  2. xóa đoạn vừa pull về ==> nếu 2 ng cùng làm 1 phần thỳ nên hỏi ý kiến nhau trc khi giải quyết conflict
+## Install 
+  * Clone or download zip file from [here](https://github.com/nhannt97hy/chat-angular)  
+  * Install all dependences: **npm install**
+  * Run the app: **npm start**
+  * Open the link **localhost:3000** from your browser   
 
-)
+## Usage  
+  * ### 1.Login  
+  * ### 2.Register  
+  * ### 3.Chat  
+    - Create new conversation
+    - Edit your information
+    - Edit conversations' information
+    - Add user to a group chat
+ 
 
-(git commit -m "solved conflict" ==> nếu bc trước có conflict, nếu k thỳ bỏ qua)
-
-git push
 
