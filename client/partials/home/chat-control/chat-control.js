@@ -9,7 +9,7 @@ angular.module(componentName, ['ngEventEmitter'])
 function Controller(chatService, $on) {
     let self = this;
     function get() {
-        // self.curCon = db.curConversation;
+        self.curCon = chatService.curConver;
         self.title = chatService.curConver.title;
     }
     get();
@@ -22,5 +22,10 @@ function Controller(chatService, $on) {
     })
     $on('changeCurCon', function (params) {
         get();
+    })
+    socket.on('addUserToConver', function(data){
+        if(self.curCon.id == data.conver.id){
+            get();
+        }
     })
 }

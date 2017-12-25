@@ -73,20 +73,13 @@ function chat ($http, $window, authentication) {
     var curConver = {};
     var listMess = [];
     var listUser = [];
-    var refresh = function(){
-        curUser = {};
-        listConver = [];
-        curConver = {};
-        listMess = [];
-        listUser = [];
-        getUserList().then(function (users) {
-            listUser = users.data;
-            console.log('listUser:', listUser);
-        })
-    }
-
-    refresh();
-
+    
+    getUserList().then(function (users) {
+        listUser = users.data;
+        console.log('listUser:', listUser);
+    })
+    
+    
     var getUser = function (id) {
         for( let i=0; i<listUser.length; i++ )
             if( listUser[i].id == id )
@@ -115,6 +108,6 @@ function chat ($http, $window, authentication) {
         editUser: editUser,
         addUserToConversation: addUserToConversation,
         sendMessage: sendMessage,
-        refresh: refresh
+        // refresh: refresh
     }
 }

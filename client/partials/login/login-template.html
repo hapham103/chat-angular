@@ -1,29 +1,6 @@
-<div class="container">
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="panel-title">Sign In</div>
-            </div>
-            <div class="panel-body">
-                <div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger input-group">{{ loginCtrl.formError }}</div>
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-                <form id="loginform" class="form-horizontal" role="form">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="email" placeholder="Email" id="email" ng-model="loginCtrl.user.email" class="form-control" >
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input class="form-control" type="password" placeholder="Password" id="pwd" ng-model="loginCtrl.user.password">
-                    </div>
-                    <div class="input-group">
-                        <div style="border-top: 1px solid#888; padding-top:15px;">
-                            <a id="btn-login" href="#" class="btn btn-success" ng-click="loginCtrl.login()">Login  </a>
-                            <span style="margin-left:28%">Don't have an account!</span><a ui-sref="register">Sign Up Here</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+Login page
+<a ui-sref='register'>register</a>
+<div role="alert" ng-show="loginCtrl.formError" class="alert alert-danger">{{ loginCtrl.formError }}</div>
+<input type="" name="" value="" id="email" ng-model="loginCtrl.user.email">
+<input type="password" name="" value="" id="pwd" ng-model="loginCtrl.user.password">
+<button type="submit" ng-click="loginCtrl.login()">Login</button>

@@ -98,8 +98,6 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                 chatService.createConversation(info)
                     .then(function(con){
                         console.log('con', con);
-                        
-                        
                         if(self.receivers.length>1){
                             chatService.listConver.push(con.data);
                         }
@@ -113,8 +111,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                         chatService.curConver = con.data;
                         chatService.listMess = con.data.Messages;
                         $emit('addConver', con.data);
-                        
-                        socket.emit('addConver', {conver: con.data, sender: self.currentUser});
+                        socket.emit('addConver', {conver: con.data, sender: self.currentUser, receivers: self.receivers});
                         
                     }).catch(err => {
                         console.log('createConversation err', err);
@@ -205,16 +202,23 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                         self.receivers.forEach(function(rec){
                             newTitle += (' ,' + rec.username );
                         })
-                        chatService.updateConversation(conversationid, {title: newTitle})
-                            .then(function (c) {
-                                console.log('update title success: ', c);
-                            })
-                            .catch(err=>{console.log('update title fail', err);});
-                        socket.emit('addUser', );
+                        if(chatService.curConver.title.indexOf(", ") != -1){
+                            chatService.updateConversation(conversationid, { title: newTitle })
+                                .then(function (c) {
+                                    console.log('update title success: ', c);
+                                    socket.emit('addUser', { conver: c.data, users: self.receivers });
+                                    self.cancel();
+                                })
+                                .catch(err => { console.log('update title fail', err); });
+                        }else{
+                            console.log('update title success: ', con);
+                            socket.emit('addUser', { conver: con.data, users: self.receivers });
+                            self.cancel();
+                        }
                     }).catch(err => {
                         console.log('add user err', err);
                     })
-                self.cancel();
+                
             }
             self.cancel = function () {
                 close(null);

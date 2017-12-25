@@ -30,6 +30,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 scr.scrollTop(scr[0].scrollHeight);
             });
             $('#list-message').height($('#chat-form').height() - $('#chat').height());
+            $('#chat-form').height($('body').height() - 50);
+            $('#list-message').height($('#chat-form').height() - $('#chat').height());
             $(window).resize(function () {
                 $('#chat-form').height($('body').height() - 50);
                 $('#list-message').height($('#chat-form').height() - $('#chat').height());
@@ -42,6 +44,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
     }
     get();
     var test = function(){
+        chatService.listMess = chatService.listMess;
         self.listMess = chatService.listMess;
         $timeout(test);
     }
@@ -147,7 +150,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                     message_type: "image",
                     sender_id: self.curUser.id
                 };
-                self.listMess.push(message);
+                // chatService.listMess.push(message);
+                socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
                 chatService.sendMessage(self.curConver.id, message);
             }).catch((err) => {
                 console.log("upload image fail", err);
@@ -167,7 +171,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                     message_type: "file",
                     sender_id: self.curUser.id
                 };
-                self.listMess.push(message);
+                socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
+                // chatService.listMess.push(message);
                 chatService.sendMessage(self.curConver.id, message)
             }).catch((err) => {
                 console.log("upload file fail", err);
@@ -189,20 +194,22 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 }).catch(function (err) {
                     console.log('err', err);
                 })
-            socket.emit('sendMessage', { content: content, room: self.curConver, sender: self.curUser });
+            socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
             e.preventDefault();
             $('textarea').val(''); 
         }
     });
-    
+    socket.on('addUserToConver', function(data){
+        socket.emit('joinRoom', data);
+    })
     socket.on('receiveMessage', function (data) {
         console.log('client reciveMessage');
-        if(self.curConver.id == data.room.id) {
+        if(self.curConver.id == data.conversation.id) {
             chatService.listMess.push({
-                message_type: "text",
-                message: data.content,
-                sender_id: data.sender.id,
-                conversation_id: data.room.id,
+                message_type: data.message.message_type,
+                message: data.message.message,
+                sender_id: data.message.sender_id,
+                conversation_id: data.conversation.id,
                 User: data.sender
             });
             get();
