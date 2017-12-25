@@ -148,7 +148,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 var message = {
                     message: rs.data.content,
                     message_type: "image",
-                    sender_id: self.curUser.id
+                    sender_id: self.curUser.id,
+                    createdAt: Date()
                 };
                 // chatService.listMess.push(message);
                 socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
@@ -169,7 +170,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 var message = {
                     message: rs.data.content,
                     message_type: "file",
-                    sender_id: self.curUser.id
+                    sender_id: self.curUser.id,
+                    createdAt: Date()
                 };
                 socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
                 // chatService.listMess.push(message);
@@ -186,7 +188,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
             var message = {
                 message: content,
                 message_type: 'text',
-                sender_id: self.curUser.id
+                sender_id: self.curUser.id,
+                createdAt: Date()
             }
             chatService.sendMessage(self.curConver.id, message)
                 .then(function (mess) {
@@ -210,7 +213,8 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 message: data.message.message,
                 sender_id: data.message.sender_id,
                 conversation_id: data.conversation.id,
-                User: data.sender
+                User: data.sender,
+                createdAt: data.message.createdAt
             });
             get();
             console.log(self.listMess);
