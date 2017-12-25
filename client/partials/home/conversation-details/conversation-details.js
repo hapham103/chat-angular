@@ -15,7 +15,7 @@ function Controller(chatService, $on, DialogService, $timeout) {
     
     function get() {
         self.curConver = chatService.curConver;
-        self.title = self.curConver.title;
+        self.title = chatService.curConver.title;
         self.avatarUrl = self.curConver.avatar;
         a = self.curConver.Users;
         self.participants = self.curConver.Users;
@@ -34,6 +34,12 @@ function Controller(chatService, $on, DialogService, $timeout) {
         self.participants = a;
         $timeout(getPar);
     }
+    var getTitle = function(){
+        self.title = chatService.curConver.title;
+        console.log('aaa: ', self.title);
+        $timeout(getTitle);
+    }
+    $timeout(getTitle);
     $timeout(getPar);
     get();
     console.log('fasdf0: ', self.title);

@@ -46,6 +46,12 @@ function loginCtrl($location, $emit, $on, $timeout, authentication, chatService)
                                     conver.avatar = conver.Users[0].avatar;
                                 }
                             });
+                        }else{
+                            chatService.curConver = {
+                                title: 'Chat App',
+                                avatar: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/30fe9b7917223.560be8f580f20.png',
+                                
+                            }
                         }
                         $location.path('/home');
                     })

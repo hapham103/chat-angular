@@ -327,7 +327,8 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                             console.log('new user', self.newUser);
                             chatService.updateConversation(this.curConver.id, self.newConver)
                             .then(conver => {
-                                //lap socket io vao day
+                                chatService.curConver.title = self.curConver.title;
+                                chatService.curConver.avatar = self.avatar;
                                 close(null);
                             }).catch(err=>{
                                 console.log('edit conversation fail',err);
@@ -339,7 +340,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                     console.log('newConver', self.newConver);
                     chatService.updateConversation(this.curConver.id, self.newConver)
                         .then(conver => {
-                            //lap socket io vao day
+                            chatService.curConver.title = self.curConver.title;
                             close(null);
                         }).catch(err=>{
                             console.log('edit user fail',err);

@@ -11,6 +11,7 @@ function Controller(chatService, $emit, $on, $timeout) {
     self.conversations = chatService.listConver;
     socket.on('addListConver', function (data) {
         console.log('add conversation');
+        socket.emit('joinRoomAdded', data.conver);
         for (let i =0; i< data.receivers.length; i++)
             if(data.receivers[i].id == chatService.curUser.id){
                 chatService.listConver.unshift(data.conver);
@@ -21,6 +22,7 @@ function Controller(chatService, $emit, $on, $timeout) {
     });
     var g = function () {
         self.conversations = chatService.listConver;
+        
         $timeout(g);
     };
     $timeout(g);

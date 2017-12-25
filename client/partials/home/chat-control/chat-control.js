@@ -6,12 +6,14 @@ angular.module(componentName, ['ngEventEmitter'])
         controllerAs: 'chatCtrl'
     });
 
-function Controller(chatService, $on) {
+function Controller(chatService, $on, $timeout) {
     let self = this;
-    function get() {
+    var get = function() {
         self.curCon = chatService.curConver;
         self.title = chatService.curConver.title;
+        $timeout(get);
     }
+    $timeout(get);
     get();
     $on('changeConversation', function(data) {
         get();
