@@ -311,7 +311,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
 
             let self = this;
             self.curConver = chatService.curConver;
-            var newConver = {
+            self.newConver = {
                 title: self.curConver.title
             }
             this.cancel = function () {
@@ -323,11 +323,12 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                     formData.append('file', self.avatar);
                     uploadService.uploadAvatar(formData)
                         .then((rs)=>{
-                            newConver.avatar = rs.data.content;
+                            self.newConver.avatar = rs.data.content;
                             console.log('new user', self.newUser);
-                            chatService.updateConversation(this.curConver.id, newConver)
+                            chatService.updateConversation(this.curConver.id, self.newConver)
                             .then(conver => {
                                 //lap socket io vao day
+                                console.log('edit success');
                                 close(null);
                             }).catch(err=>{
                                 console.log('edit conversation fail',err);
@@ -336,9 +337,10 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                             console.log("upload avatar fail", err);
                         })
                 } else {
-                    chatService.updateConversation(this.curConver.id, newConver)
+                    chatService.updateConversation(this.curConver.id, self.newConver)
                         .then(conver => {
                             //lap socket io vao day
+                            console.log('edit success');
                             close(null);
                         }).catch(err=>{
                             console.log('edit user fail',err);
