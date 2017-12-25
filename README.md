@@ -6,20 +6,22 @@
   * Hà Văn Linh  
   * Nguyễn Đình Công Sơn  
   
-## Install 
-  * Clone or download zip file from [here](https://github.com/nhannt97hy/chat-angular)  
+## About this app
+This is a simple chat application with: 
+  * ### features:
+     - Sending text
+     - Sending files
+     - Sending images
+     - Sending files and images by drag & drop
+  * ### Dependencies
+     - Client: AngularJS
+     - Server: NodeJS, SequelizeJS, express
+     - Real-time: socket.io
+     
+## Usage
+  * Clone or download zip file from [https://github.com/nhannt97hy/chat-angular](https://github.com/nhannt97hy/chat-angular)  
   * Install all dependences: **npm install**
   * Run the app: **npm start**
   * Open the link **localhost:3000** from your browser   
-
-## Usage  
-  * ### 1.Login  
-  * ### 2.Register  
-  * ### 3.Chat  
-    - Create new conversation
-    - Edit your information
-    - Edit conversations' information
-    - Add user to a group chat
- 
-
+Note: chat-app using mysql for storing data. So, you have to start mysql and create a database name "chat_angular" before.
 
