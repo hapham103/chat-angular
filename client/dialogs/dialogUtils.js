@@ -268,10 +268,14 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                         uploadService.uploadAvatar(formData)
                             .then((rs)=>{
                                 self.newUser.avatar = rs.data.content;
+                                
                                 console.log('new user', self.newUser);
                                 chatService.editUser(this.curUser.id, self.newUser)
                                 .then(user => {
-                                    //lap socket io vao day
+                                    chatService.curUser.avatar = self.newUser.avatar;
+                                    self.newUser.username = user.data.username;
+                                    chatService.curUser.username = self.newUser.username;
+                                    
                                     close(null);
                                 }).catch(err=>{
                                     console.log('edit user fail',err);
@@ -279,10 +283,13 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                             }).catch((err)=> {
                                 console.log("upload avatar fail", err);
                             })
-                    } else {
-                        console.log('newUser', self.newUser);
-                        chatService.editUser(this.curUser.id, self.newUser)
+                        } else {
+                            console.log('newUser', self.newUser);
+                            chatService.editUser(this.curUser.id, self.newUser)
                             .then(user => {
+                                self.newUser.username = user.data.username;
+            
+                                chatService.curUser.username = user.data.username;
                                 //lap socket io vao day
                                 close(null);
                             }).catch(err=>{

@@ -6,10 +6,15 @@ angular.module(componentName, [])
         controllerAs: 'myAcount'
     });
 
-function Controller(authentication, chatService, $location, DialogService) {
+function Controller(authentication, chatService, $location, DialogService, $timeout) {
     let self = this;
-    self.avatarUrl = chatService.curUser.avatar;
-    self.username = chatService.curUser.username;
+    var get = function () {
+        self.avatarUrl = chatService.curUser.avatar;
+        self.username = chatService.curUser.username;
+        $timeout(get);
+    }
+    $timeout(get);
+    
 
     self.logout = function () {
         authentication.logout();
