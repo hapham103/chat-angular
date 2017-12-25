@@ -1,13 +1,13 @@
 angular.module('chat-app').controller("registerCtrl", registerCtrl);
 
-function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadService) {
+function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadService, chatService) {
     let self = this;
     self.formError = ""
     self.user = {
         email: "",
         password: "",
         username: "",
-        avatar: "",
+        avatar: authentication.defaultAvatar,
         fullname: "",
         repassword:""
     }
@@ -47,7 +47,10 @@ function registerCtrl( $location, $emit, $on, $timeout, authentication, uploadSe
 
         authentication.register(newUser)
             .then(function (user){
-                console.log("success");
+                chatService.curUser = newUser;
+                chatService.listMess = [];
+                chatService.listConver = [];
+                chatService.curConver = {};
                 $location.path('/home');
             }).catch(function(err) {
                 self.formError = "Email existed!";
