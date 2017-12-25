@@ -31,13 +31,13 @@
 
 </div>
 <div id="chat" >
-    <div class="text-area col-sm-10">
+    <div class="text-area">
         <textarea rows="1" placeholder="Nhập tin nhắn..."  autofocus></textarea>    
     </div>
-    <div class="icon-area col-sm-1">
+    <div class="icon-area">
         <i class="glyphicon glyphicon-picture" ngf-select ng-model="chat.images" accept='image/*' ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendImage(chat.images)"></i>
     </div> 
-    <div class="icon-area col-sm-1">   
+    <div class="icon-area">   
         <i class="glyphicon glyphicon-paperclip" ngf-select ng-model="chat.files" ngf-multiple="true" ngf-model-invalid="errorFile" ng-change="chat.sendFile(chat.files)"></i>
     </div>
 </div>

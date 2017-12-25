@@ -225,13 +225,26 @@ textarea {
     border: 1px solid #7be6f2;
     box-sizing: border-box;
 } 
+#chat {
+    display: flex;
+    justify-content: space-around;
+}
+.text-area {
+    flex: 1 1 80%;
+    min-width: 20px;
+    margin-right: 10px;
+}
+.icon-area {
+    flex: 0 0 10%;
+    min-width: 20px;
+}
 
 /* conversation-detail */
 
 .conversation-detail {
     border-bottom: 1px solid #ccc;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 10px;
 }
 .conversation-detail .detail-img {
