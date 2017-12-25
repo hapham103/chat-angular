@@ -54,7 +54,7 @@ module.exports.postAvatar = function(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req);
     form.on('fileBegin', function(name, file) {
-        file.name = Date.now() + '_' + req.params.userid + "_" + file.name;
+        file.name = Date.now() + '_' + file.name;
         file.path = "./uploads/avatar/" + file.name;
     })
     form.on('file', function(name, file){
