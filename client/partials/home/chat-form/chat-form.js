@@ -180,10 +180,13 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 console.log("upload file fail", err);
             })
     }
-
-    $('textarea').keypress(function (e) {
+    // $('#enter').emojioneArea({
+    //     pickerPosition: "top"
+    // });
+    $('#enter').keypress(function (e) {
         if (e.which == 13 && !e.shiftKey) {
             var content = $('textarea').val().replace("\n", "</br>");
+            // console.log('ct: ', content);
             // var content = $('textarea').val();
             var message = {
                 message: content,
@@ -199,7 +202,7 @@ function Controller(chatService, $on, uploadService, $scope, $timeout) {
                 })
             socket.emit('sendMessage', { message: message, conversation: self.curConver, sender: self.curUser });
             e.preventDefault();
-            $('textarea').val(''); 
+            $('#enter').val(''); 
         }
     });
     socket.on('addUserToConver', function(data){

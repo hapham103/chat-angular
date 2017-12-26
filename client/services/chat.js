@@ -3,7 +3,7 @@ function chat ($http, $window, authentication) {
     // var token = authentication.getToken();
     // var payload = JSON.parse($window.atob(token.split('.')[1]));
 
-    var defaultImage = "avatar/default2.png";
+    var defaultImage = "avatar/default_group.jpg";
     var getUserList = function() {
         return $http.get('/api/users', {
             headers: { 'Authorization': authentication.getToken()}
