@@ -107,7 +107,7 @@ function DialogUtils(ModalService, chatService, $timeout, authentication, $emit,
                             chatService.listConver.push(con.data);
                         }
                         con.data.Users = self.receivers;
-                        con.data.Users.unshift(self.currentUser);
+                        // con.data.Users.unshift(self.currentUser);
                         con.data.Messages = [];
                         chatService.curConver = con.data;
                         chatService.listMess = con.data.Messages;
