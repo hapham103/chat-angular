@@ -1,10 +1,12 @@
 'use strict';
 var fs = require('fs');
+var md5 = require('md5');
 var path = require('path');
 var Sequelize = require('sequelize');
 var basename = path.basename(module.filename);
 var sequelize = new Sequelize("chat_angular", "root", "", {
-    dialect: 'mysql'
+    dialect: 'sqlite',
+    storage: 'chat_angular.sqlite'
 });
 var Op = Sequelize.Op;
 var db = {};
@@ -23,11 +25,7 @@ Object.keys(db).forEach(function(modelName) {
         db[modelName].associate(db);
     }
 });
-sequelize.sync().then(()=>{
-    console.log('sync success', db.User);
-}).catch(err=>{
-    console.log('sync err');
-})
+
 
 db.Conversation.belongsToMany(db.User, {
     through : 'user_conversation',
@@ -53,8 +51,39 @@ db.Message.belongsTo(db.User, {
     foreignKey: 'sender_id',
     targetKey: 'id'
 });
-
-var models = sequelize.models;
+sequelize.sync().then(()=>{
+    db.User.create({
+        id: 1,
+        username: 'Admin',
+        password: md5('a'),
+        email: 'admin@gmail.com',
+        fullname: 'admin',
+        avatar: '../uploads/avatar/chatapp.jpg'
+    }).then(data=>{
+        
+    }).catch(err=>{});
+    db.Conversation.create({
+        id: 1,
+        title: 'Chat app',
+        avatar: '../uploads/avatar/chatapp.jpg'
+    }).then(data=>{
+        let ids = [1];
+        data.setUsers(ids);
+        res.send(data);
+    }).catch(err=>{});
+    db.Message.create({
+        id: 1,
+        message: 'Hello',
+        message_type: 'text',
+        conversation_id: 1,
+        sender_id : 1
+    }).then(data=>{
+        
+    }).catch(err=>{});
+    console.log('sync success', db.User);
+}).catch(err=>{
+    console.log('sync err');
+})
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

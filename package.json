@@ -29,6 +29,7 @@
     "mysql2": "^1.5.1",
     "ng-file-upload": "^12.2.13",
     "sequelize": "^4.26.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "sqlite3": "^4.0.0"
   }
 }
